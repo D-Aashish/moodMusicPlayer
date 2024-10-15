@@ -18,3 +18,6 @@ def index(request):
 
     return render (request, 'mood/index.html', {'form': form})
     # return render (request, 'mood/index.html')
+
+def music(request):
+  return render(request, 'mood/music.html')

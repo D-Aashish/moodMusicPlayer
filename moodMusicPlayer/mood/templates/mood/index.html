@@ -1,14 +1,13 @@
 {% extends "layout.html" %}
 
 {% block title %}
-Home Page
+<!-- Add your title here -->
 {% endblock %}
 
 {% block content %}
-{% comment %} {{ formset.management_form }}  {% endcomment %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">MoodsList </a>
+    <a class="navbar-brand" href="#">MoodsList</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,30 +40,24 @@ Home Page
       </form>
     </div>
   </div>
-</nav>  
-  <div class="card" style="width: 18rem;">
+</nav>
+
+<div class="container text-center mt-5">
+  <div class="card mx-auto mb-4" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title"> WHAT'S YOUR MOOD?</h5>
+      <h5 class="card-title">WHAT'S YOUR MOOD?</h5>
     </div>
   </div>
+
   <form method="POST">
     {{ formset.management_form }}
     {% csrf_token %}
-  <div class="dropdown-center">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
-      {% comment %} {{form.help_text}}
-      {{form.label}} {% endcomment %}
-      {{form.as_p}} 
-      {% comment %} {{ field.as_field_group}} {% endcomment %}
-    </button>
-  </div>
-      {% comment %} <ul>
-        {% for mood in store_mood%}
-        <li>{{mood.type}} -{{ mood.get_type_display}} </li>
-        {%empty%}
-        <li>No moods available</li>
-        {% endfor%}
-      </ul> {% endcomment %}
-      <button type="submit" class="btn btn-primary btn-lg">Search</button>
-    </form>
+    <div class="dropdown-center mb-3">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+        {{ form.as_p }} 
+      </button>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Search</button>
+  </form>
+</div>
 {% endblock %}

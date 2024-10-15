@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="music_card mb-4">
+        <div class="card mx-auto" style="width: 25rem; height: 15rem">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Music</h5>
+                <a href="#" class="btn btn-primary">More</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col col-lg-2">
+            <button class="btn btn-secondary">Left</button>
+        </div>
+        <div class="col-md-auto">
+            <button class="btn btn-warning">Play/Pause</button>
+        </div>
+        <div class="col col-lg-2">
+            <button class="btn btn-secondary">Right</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
