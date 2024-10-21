@@ -1,17 +1,17 @@
 {% extends "layout.html" %}
 
 {% block title %}
-<!-- Add your title here -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">MoodsList</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -19,25 +19,17 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="mx-auto" style="flex-grow: 1; max-width: 500px;">
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%;">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+      <div>
+        <i class="fa-solid fa-bell fa-xl me-3"></i>
+        <i class="fa-solid fa-user fa-xl"></i>
+      </div>
     </div>
   </div>
 </nav>
@@ -50,14 +42,20 @@
   </div>
 
   <form method="POST">
-    {{ formset.management_form }}
+    {% comment %} {{ formset.management_form }} {% endcomment %}
     {% csrf_token %}
-    <div class="dropdown-center mb-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+    <div class="dropdown-center mb-3 d-flex">
+      {% comment %} <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
         {{ form.as_p }} 
-      </button>
+      </button> {% endcomment %}
+      <div>
+        <label for="{{ form.type.id_for_label }}">{{ form.type.label }}</label>
+        {{ form.type }}
+      </div>
+      <i class="fa-solid fa-microphone fa-xl"></i>
     </div>
     <button type="submit" class="btn btn-primary btn-lg">Search</button>
   </form>
+ 
 </div>
 {% endblock %}

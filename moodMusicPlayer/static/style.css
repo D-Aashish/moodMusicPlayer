@@ -1,9 +1,55 @@
 body{
     background-color: rgb(49, 78, 71);
     color:  wheat;
+    overflow: hidden;
 }
 
 h1{
     text-align: center;
     font-size: 2em;
 }
+
+.navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    font-weight: 500;
+    margin: 0 10px;
+  }
+
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+
+  .form-control {
+    max-width: 100%;
+  }
+  .main{
+    position: relative;
+  }
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+  }
+
+  .bookmark{
+    position: relative;
+    top: -7rem;
+    /* left: 12rem; */
+  }
+  .controls-container{
+    position: absolute;
+  }
+  .controls{
+    position: relative;
+    top: 18rem;
+    left: 30.5rem;
+  }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mood List</title>
+</head>
+<body>
+    <h1>Mood List</h1>
+    <form method="POST" action="">  <!-- Replace 'some_view' with your target view -->
+        {% csrf_token %}
+        <select name="selected_mood">
+            {% for mood in moods %}
+                <option value="{{ mood.type }}">{{ mood.name }}</option>
+            {% empty %}
+                <option value="">No moods available</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Select Mood</button>
+    </form>
+    <a href="">Create a New Mood</a>
+</body>
+</html>

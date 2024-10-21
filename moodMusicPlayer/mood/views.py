@@ -1,23 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Moods
 from .forms import MoodsForm
+# import requests
+
 
 # Create your views here.
 def index(request):
-    # store_mood= None
-        
+    # moods = Moods.objects.all()
     if request.method == 'POST':
-     form  = MoodsForm(request.POST)
-     if form.is_valid():
-       moods_list = form.cleaned_data['moods_list']
-    #    store_mood = Store.objects.filter()
-
-    # store_mood = Moods.objects.all()
+        form = MoodsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('music')
     else:
-      form = MoodsForm()
-
-    return render (request, 'mood/index.html', {'form': form})
-    # return render (request, 'mood/index.html')
+        form = MoodsForm()    
+    return render(request, 'mood/index.html', {'form': form})
+    # return render(request, 'mood/index.html', {'form': form, 'moods': moods})
 
 def music(request):
   return render(request, 'mood/music.html')
+
+def mood_list(request):
+    moods = Moods.objects.all()
+    return render(request, 'mood/mood_list.html', {'moods': moods})

@@ -1,0 +1,29 @@
+# Django
+# Django
+.pyc
+__pycache__/
+db.sqlite3
+.env
+/migrations/
+settings_local.py
+
+# React
+node_modules/
+build/
+.cache/
+npm-debug.log
+yarn-error.log
+
+# General
+.log
+.DS_Store
+Thumbs.db
+ehthumbs.db
+coverage/
+.vscode/
+.idea/
+venv/
+
+news
+requirements
+# api

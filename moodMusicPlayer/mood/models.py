@@ -32,12 +32,3 @@ class Moods(models.Model):
 
    def __str__(self):
        return self.name
-
-    
-#    def __str__(self):
-#        return self.name
-   
-#    def save(self, *args, **kwargs):
-#         if self.price < 0:
-#             raise ValueError("Price cannot be negative.")
-#         super().save(*args, **kwargs)
