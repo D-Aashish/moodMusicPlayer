@@ -48,6 +48,7 @@ def song_url(request):
 
 def getsong(request):
     selected_mood_type = request.session.get('selected_mood', None)
+    # retrieve the selected mood from the session
     mood_instance = None
 
     if selected_mood_type:
@@ -58,6 +59,34 @@ def getsong(request):
         return render(request, 'api/search.html', {'musicInfo': music_info})
     # else:
         # return render(request, 'api/search.html', {'musicInfo': music_info})
+def check_session(request):
+    # Print all session data
+    print(request.session.items())  # This will display all session keys and values
+    
+    # Specifically check for 'selected_mood'
+    selected_mood = request.session.get('selected_mood', None)
+    print(f"Selected Mood: {selected_mood}")  # Display the selected mood
+
+    return render(request, 'api/check_session.html', {'selected_mood': selected_mood})
+
+def check_mood_in_database(request):
+    selected_mood_type = request.session.get('selected_mood', None)
+    
+    if selected_mood_type:
+        # Query the database for the mood
+        mood_instance = Moods.objects.filter(type=selected_mood_type).first()
+        
+        if mood_instance:
+            mood_exists = True
+        else:
+            mood_exists = False
+    else:
+        mood_exists = False  # No mood selected in session
+
+    return render(request, 'api/check_mood.html', {
+        'mood_exists': mood_exists,
+        'selected_mood': selected_mood_type,
+    })
 
 
 

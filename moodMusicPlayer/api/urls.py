@@ -1,7 +1,7 @@
 # urls.py
 from django.urls import path
-from .views import categories_view, tracks_view , spotify , sdk, song_url, getsong
-# from .views import *
+# from .views import categories_view, tracks_view , spotify , sdk, song_url, getsong
+from .views import *
 
 urlpatterns = [
     # path('spotify-genres/', get_spotify_genres, name='spotify-genres'),
@@ -11,4 +11,6 @@ urlpatterns = [
     path('sdk', sdk, name='sdk'),
     path('play', song_url, name='songUrl'),
     path('search', getsong, name='song'),
+    path('session', check_session, name='session'),
+    path('checkmood', check_mood_in_database, name='mood'),
 ]

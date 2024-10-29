@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from .models import Moods
 from .forms import MoodsForm
-from api.spotify_utils import get_songs, get_token, search_songs
-from api.views import get_songs
+from api.spotify_utils import get_token, search_songs
+from api.views import getsong
 from dotenv import load_dotenv
 import os 
 # import requests
@@ -21,7 +21,10 @@ def index(request):
         form = MoodsForm(request.POST)
         if form.is_valid():
             mood_instance = form.save()
+            # store the mood selected in database
             request.session["selected_mood"] = mood_instance.type
+            # saves the selected mood type in the session dictionary under the key
+            return getsong(request)
             # return redirect('get_songs()')
     else:
         form = MoodsForm()    
