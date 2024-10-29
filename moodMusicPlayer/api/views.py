@@ -5,8 +5,7 @@ import requests
 from dotenv import load_dotenv
 import os 
 from .spotify_utils import get_songs, get_token, search, search_songs
-from dotenv import load_dotenv
-
+from mood.models import Moods
 
 # SPOTIFY_TOKEN = os.environ.get('CLIENT_ID')
 
@@ -48,9 +47,21 @@ def song_url(request):
     return render(request,'api/song.html', {'audio_url':url})
 
 def getsong(request):
-    token = get_token(client_id, client_secret)
-    music_info = search_songs(token)
-    return render(request, 'api/search.html', {'musicInfo': music_info})
+    selected_mood_type = request.session.get('selected_mood', None)
+    mood_instance = None
+
+    if selected_mood_type:
+        token = get_token(client_id, client_secret)
+        mood_instance = Moods.objects.filter(type=selected_mood_type).first()
+        music_info = search_songs(token,mood_instance)
+        # music_info = search_songs(token, selected_mood)
+        return render(request, 'api/search.html', {'musicInfo': music_info})
+    # else:
+        # return render(request, 'api/search.html', {'musicInfo': music_info})
+
+
+
+
 # def get_spotify_genres(request):
 #     access_token = '1POdFZRZbvb...qqillRxMr2z'  # Replace with your token
 #     genres = fetch_spotify_genres(access_token)
