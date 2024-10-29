@@ -27,3 +27,8 @@ venv/
 news
 requirements
 # api
+
+api/spotify_artist.py
+api/spotify_utils.py
+api/readtoken.py
+api/tests.py

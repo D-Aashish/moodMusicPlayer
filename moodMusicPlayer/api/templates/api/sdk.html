@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotify Web Playback SDK Quick Start</title>
+</head>
+<body>
+    <h1>Spotify Web Playback SDK Quick Start</h1>
+    <button id="togglePlay">Toggle Play</button>
+    <iframe src="https://open.spotify.com/album/1WNQGa48WMSqjS67Ntyg1h?si=c20bf19fe524413f" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    {% comment %} https://open.spotify.com/album/1WNQGa48WMSqjS67Ntyg1h?si=c20bf19fe524413f {% endcomment %}
+    <a href="https://open.spotify.com/album/1WNQGa48WMSqjS67Ntyg1h?si=c20bf19fe524413f" target="_blank">Listen to Track on Spotify</a>
+
+
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = 'YOUR_ACCESS_TOKEN'; // Ensure this token is for a Premium account
+            const player = new Spotify.Player({
+                name: 'Web Playback SDK Quick Start Player',
+                getOAuthToken: cb => { cb(token); },
+                volume: 0.5
+            });
+
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with Device ID', device_id);
+                document.getElementById('togglePlay').onclick = function() {
+                    player.togglePlay().catch(error => {
+                        console.error('Error toggling play:', error);
+                    });
+                };
+            });
+
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+                console.log('Device ID has gone offline', device_id);
+            });
+
+            // Error Listeners
+            player.addListener('initialization_error', ({ message }) => {
+                console.error('Initialization Error:', message);
+            });
+
+            player.addListener('authentication_error', ({ message }) => {
+                console.error('Authentication Error:', message);
+            });
+
+            player.addListener('account_error', ({ message }) => {
+                console.error('Account Error:', message);
+            });
+
+            // Connect the player
+            player.connect();
+        };
+    </script>
+</body>
+</html>

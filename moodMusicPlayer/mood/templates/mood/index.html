@@ -35,27 +35,30 @@
 </nav>
 
 <div class="container text-center mt-5">
+  <div class="d-flex flex-column align-items-center">
   <div class="card mx-auto mb-4" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">WHAT'S YOUR MOOD?</h5>
     </div>
   </div>
 
-  <form method="POST">
-    {% comment %} {{ formset.management_form }} {% endcomment %}
+  <div class="mood_input">
+    <form method="POST">
+      {% comment %} {{ formset.management_form }} {% endcomment %}
     {% csrf_token %}
-    <div class="dropdown-center mb-3 d-flex">
-      {% comment %} <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false"> 
-        {{ form.as_p }} 
-      </button> {% endcomment %}
-      <div>
+    <div class="dropdown-center mb-3 d-flex align-items-center">
+      <div class="me-2">
         <label for="{{ form.type.id_for_label }}">{{ form.type.label }}</label>
         {{ form.type }}
       </div>
-      <i class="fa-solid fa-microphone fa-xl"></i>
+      <div class="icon">
+        <i class="fa-solid fa-microphone fa-xl icon-control"></i>
+      </div>
     </div>
     <button type="submit" class="btn btn-primary btn-lg">Search</button>
   </form>
+</div>
  
+</div>
 </div>
 {% endblock %}

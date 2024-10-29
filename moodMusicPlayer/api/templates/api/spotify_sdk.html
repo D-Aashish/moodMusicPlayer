@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spotify Web Playback SDK Quick Start</title>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #controls { margin-top: 20px; }
+        button { padding: 10px; }
+    </style>
+  </head>
+  <body>
+    <h1>Spotify Web Playback SDK Quick Start</h1>
+    <div id="controls">
+        <button id="play">Play</button>
+        <button id="pause">Pause</button>
+
+        <button id="togglePlay">Toggle Play</button>
+
+    </div>
+  </body>
+</html>
+<script src="https://sdk.scdn.co/spotify-player.js">
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = '[BQDmXPMX-l0MjaU63f7UkEpo4OP1bvnqD5R45dZBvCybgulI5mDa1Ir_v9r7HUdWBaRvCMTzHbAZyQ86BARwg_wInTRF7q8C4Xv5NP-nYwYCe1T9iR8]';
+        const player = new Spotify.Player({
+          name: 'Web Playback SDK Quick Start Player',
+          getOAuthToken: cb => { cb(token); },
+          volume: 0.5
+        });
+        player.connect();
+
+        // Event listeners
+        player.addListener('ready', ({ device_id }) => {
+            console.log('Ready with Device ID', device_id);
+        });
+
+        player.addListener('not_ready', ({ device_id }) => {
+            console.log('Device ID has gone offline', device_id);
+        });
+
+        player.addListener('initialization_error', ({ message }) => {
+            console.error(message);
+        });
+      
+        player.addListener('authentication_error', ({ message }) => {
+            console.error(message);
+        });
+      
+        player.addListener('account_error', ({ message }) => {
+            console.error(message);
+        });
+
+        
+        // Play button handler
+        document.getElementById('play').onclick = () => {
+            player.togglePlay().then(() => {
+                console.log('Toggled playback!');
+            });
+        };
+
+        // Pause button handler
+        document.getElementById('pause').onclick = () => {
+            player.pause().then(() => {
+                console.log('Paused!');
+            });
+        };
+
+        document.getElementById('togglePlay').onclick = function() {
+            player.togglePlay();
+          };
+          
+
+        {% comment %} player.connect(); {% endcomment %}
+    };
+    player.connect();
+
+</script>

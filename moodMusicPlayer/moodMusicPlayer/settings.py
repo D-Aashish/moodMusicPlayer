@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mood',
     'api',
     'news',
+    'registration',
 ]
 
 MIDDLEWARE = [

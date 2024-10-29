@@ -1,7 +1,15 @@
+html,body{
+  height: 100%;
+}
 body{
-    background-color: rgb(49, 78, 71);
-    color:  wheat;
-    overflow: hidden;
+  background-color: rgb(58, 145, 199);
+  color: white;
+  overflow: auto;
+}
+
+.content-wrapper {
+  height: calc(100vh - 50px);
+  /* overflow-y: auto;  */
 }
 
 h1{
@@ -33,17 +41,29 @@ h1{
   .main{
     position: relative;
   }
-  .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-  }
 
+   .mood_input{
+    position: relative;
+   }
+   .icon {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+   .icon-control{
+ 
+    margin-left: 10px;
+    transform: translateY(111px);
+    margin-top: 10px;
+    vertical-align: -1.125em;
+   }
+   .dropdown-center {
+    display: flex;
+    align-items: center;
+  }
   .bookmark{
     position: relative;
     top: -7rem;
-    /* left: 12rem; */
   }
   .controls-container{
     position: absolute;
@@ -53,3 +73,5 @@ h1{
     top: 18rem;
     left: 30.5rem;
   }
+
+

@@ -24,6 +24,19 @@ class Moods(models.Model):
     ('PL', 'PLAYFUL'),
     ('ME', 'MELANCHOLIC'),
     ('MO', 'MOTIVATED'),
+    ('FR', 'FRUSTRATED'),
+    ('TI', 'TIRING'),
+    ('EN', 'ENERGETIC'),
+    ('SP', 'SPIRITUAL'),
+    ('EXH', 'EXHILARATED'),
+    ('HO', 'HOPELESS'),
+    ('FA', 'FAITHFUL'),
+    ('AW', 'AWKWARD'),
+    ('CO', 'CONFIDENT'),
+    ('SU', 'SURPRISED'),
+    ('DI', 'DISAPPOINTED'),
+    ('FO', 'FORGIVING'),
+
     ]
    name = models.CharField(max_length=100)
    upload_date = models.DateTimeField(auto_now_add=True)
