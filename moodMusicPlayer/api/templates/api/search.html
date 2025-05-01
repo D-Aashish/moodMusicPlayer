@@ -12,21 +12,38 @@
     </div>
   </div>
   <div class="content-wrapper">
-
+{% comment %} problem
+ how to find the index of each song and make a new page by clicking on it 
+ yo  tala ko bata hamle sabai tyo mood bata vetako music haru dinxa aba kasari indexing garxa  {% endcomment %}
       {% for song in musicInfo  %}
       <div class="song-card" style="margin-bottom: 20px;">
           <h6 class="song-title">{{ song.title }}</h6>
           {% comment %} <p><strong>Artist:</strong> {{ song.artist }}</p> {% endcomment %}
-    {% comment %} <p><strong>Album:</strong> {{ song.album }}</p> {% endcomment %}
-    {% if song.image_url %}
-    <img src="{{ song.image_url }}" alt="Album Art" style="width: 100px;">
+          {% comment %} <p><strong>Album:</strong> {{ song.album }}</p> {% endcomment %}
+          {% if song.image_url %}
+          <img src="{{ song.image_url }}" alt="Album Art" style="width: 100px;">
     {% endif %}
     {% if song.preview_url %}
     <audio controls>
-        <source src="{{ song.preview_url }}" type="audio/mpeg">
-        Your browser does not support the audio element.
+      <source src="{{ song.preview_url }}" type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
     {% endif %}
+    {% comment %} <div>
+      this is made without using looping
+      <h6 class="song-title">{{ song.title }}</h6>
+      <img src="{{ song.image_url }}" alt="Album Art" style="width: 100px;">
+    </div>
+     {% endcomment %}
+
+     <h5>Featured Song:</h5>
+    <div class="featured-song">
+      {% set featured_song = musicInfo[0] %}
+      <h6>{{ featured_song.title }}</h6>
+      {% if featured_song.image_url %}
+        <img src="{{ featured_song.image_url }}" alt="Featured Album Art" style="width: 100px;">
+      {% endif %}
+    </div>
 </div>
 {% endfor %}
 </div>

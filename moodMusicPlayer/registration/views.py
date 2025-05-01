@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 # Create your views here.
-def loginUser(request):
+def registration_loginUser(request):
     if request.method == "POST":
         username = request.POST["inputUsername"]
         password = request.POST["inputPassword"]
@@ -18,8 +18,8 @@ def loginUser(request):
     else:
         return render(request,'registration/login.html')
 
-def signupUser(request):
+def registration_signupUser(request):
     return render(request, 'registration/signup.html', {})
 
-def home(request):
+def registration_home(request):
     return render(request, 'registration/home.html')

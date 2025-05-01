@@ -54,9 +54,20 @@ def getsong(request):
     if selected_mood_type:
         token = get_token(client_id, client_secret)
         mood_instance = Moods.objects.filter(type=selected_mood_type).first()
-        music_info = search_songs(token,mood_instance)
+
+        if mood_instance:
+            music_info = search_songs(token, mood_instance)
+        # music_info = search_songs(token,mood_instance)
+        else:
+            music_info = []
+            
+        context = {
+           'musicInfo': music_info,
+           'indices': range(len(music_info))  # Create a range of indices
+        }
         # music_info = search_songs(token, selected_mood)
-        return render(request, 'api/search.html', {'musicInfo': music_info})
+        return render(request, 'api/search1.html', {context})
+        # return render(request, 'api/search.html', {'musicInfo': music_info})
     # else:
         # return render(request, 'api/search.html', {'musicInfo': music_info})
 def check_session(request):
@@ -89,7 +100,8 @@ def check_mood_in_database(request):
     })
 
 
-
+def youtube_play(request):
+    return render(request, 'api/yplay.html')
 
 # def get_spotify_genres(request):
 #     access_token = '1POdFZRZbvb...qqillRxMr2z'  # Replace with your token
