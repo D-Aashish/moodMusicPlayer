@@ -11,13 +11,7 @@ from mood.models import Moods
 
 # load_dotenv()
 
-main_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# os.path.abspath(__file__) give the path of current script
-# os.path.dirname() give the directory of the given path
 
-dotenv_path = os.path.join(main_dir, '.env')
-
-# Load environment v
 
 client_id = os.environ.get("CLIENT_ID")
 client_secret = os.environ.get("CLIENT_SECRET")
