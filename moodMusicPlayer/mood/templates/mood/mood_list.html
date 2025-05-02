@@ -9,14 +9,15 @@
     <form method="POST" action="">  <!-- Replace 'some_view' with your target view -->
         {% csrf_token %}
         <select name="selected_mood">
-            {% for mood in moods %}
-                <option value="{{ mood.type }}">{{ mood.name }}</option>
+            {% for mood, mood in moods %}
+                {% comment %} <option value="{{ mood.type }}">{{ mood.name }}</option> {% endcomment %}
+                <option value="{{ mood }}">{{ mood }}</option>
             {% empty %}
                 <option value="">No moods available</option>
             {% endfor %}
         </select>
         <button type="submit">Select Mood</button>
     </form>
-    <a href="">Create a New Mood</a>
+    {% comment %} <a href="">Create a New Mood</a> {% endcomment %}
 </body>
 </html>

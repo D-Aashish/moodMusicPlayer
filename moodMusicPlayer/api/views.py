@@ -7,9 +7,17 @@ import os
 from .spotify_utils import get_songs, get_token, search, search_songs
 from mood.models import Moods
 
-# SPOTIFY_TOKEN = os.environ.get('CLIENT_ID')
+# SPOTIFY_TOKEN = os.environ.get('CLIENT_ID')  
 
-load_dotenv()
+# load_dotenv()
+
+main_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# os.path.abspath(__file__) give the path of current script
+# os.path.dirname() give the directory of the given path
+
+dotenv_path = os.path.join(main_dir, '.env')
+
+# Load environment v
 
 client_id = os.environ.get("CLIENT_ID")
 client_secret = os.environ.get("CLIENT_SECRET")
@@ -41,6 +49,7 @@ def sdk(request):
 
 def song_url(request):
     token = get_token(client_id, client_secret)
+    # error is showing in this line but i don't know what is causing this error it might be caused due to specifically writting name of artist
     result = search(token,"Ed Sheeran")
     artistId = result["id"]
     url = get_songs(token, artistId)

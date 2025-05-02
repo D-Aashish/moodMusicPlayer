@@ -42,5 +42,5 @@ def music(request):
     return render(request, 'mood/mood_result.html')
 
 def mood_list(request):
-    moods = Moods.objects.all()
+    moods = Moods.MOODLIST
     return render(request, 'mood/mood_list.html', {'moods': moods})
