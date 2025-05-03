@@ -25,6 +25,7 @@ coverage/
 venv/
 
 readme.txt
+fix.txt
 news
 requirements
 # api
