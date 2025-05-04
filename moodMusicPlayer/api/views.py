@@ -69,7 +69,7 @@ def getsong(request):
            'indices': range(len(music_info))  # Create a range of indices
         }
         # music_info = search_songs(token, selected_mood)
-        return render(request, 'api/search1.html', {context})
+        return render(request, 'api/search1.html', context)
         # return render(request, 'api/search.html', {'musicInfo': music_info})
     # else:
         # return render(request, 'api/search.html', {'musicInfo': music_info})
