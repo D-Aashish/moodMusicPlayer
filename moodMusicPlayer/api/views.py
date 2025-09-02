@@ -7,9 +7,9 @@ import os
 from .spotify_utils import get_songs, get_token, search, search_songs
 from mood.models import Moods
 
-# SPOTIFY_TOKEN = os.environ.get('CLIENT_ID')  
+SPOTIFY_TOKEN = os.environ.get('CLIENT_ID')  
 
-# load_dotenv()
+load_dotenv()
 
 
 
@@ -49,30 +49,50 @@ def song_url(request):
     url = get_songs(token, artistId)
     return render(request,'api/song.html', {'audio_url':url})
 
-def getsong(request):
+def getsongView(request):
     selected_mood_type = request.session.get('selected_mood', None)
+    spotify_token = request.session.get('spotify_token', None)
+    print("Selected Mood from session:", selected_mood_type)
+    print("Spotify Token from session:", spotify_token)
     # retrieve the selected mood from the session
     mood_instance = None
+    music_info = []
 
-    if selected_mood_type:
-        token = get_token(client_id, client_secret)
+    if selected_mood_type and spotify_token:
+        # retrieve token from .env
+        token_data = get_token(client_id, client_secret)
+        # mood_instance = Moods.objects.filter(type=selected_mood_type).first()
+        # print("Mood instance found:", mood_instance)
         mood_instance = Moods.objects.filter(type=selected_mood_type).first()
+        print("Mood instance found:", mood_instance)
+
+        if token_data and 'access_token' in token_data:
+            token = token_data['access_token']
+        #     mood_instance = Moods.objects.filter(type=selected_mood_type).first()
+        #     print("Mood instance found:", mood_instance)
 
         if mood_instance:
-            music_info = search_songs(token, mood_instance)
-        # music_info = search_songs(token,mood_instance)
+                    music_info = search_songs(token, mood_instance.type)
+                    print("Fetched songs:", music_info)
+                # music_info = search_songs(token,mood_instance)
         else:
-            music_info = []
+                    # music_info = []
+                    print("No mood instance found.")
+    else:
+        print("❌ Missing selected mood or Spotify token in session.")
+        if not spotify_token:
+            music_info = [{'error': 'Spotify access token is missing from the session. Please try again.'}]
+        else:
+            music_info = [{'error': 'Selected mood is missing from the session.'}]
+
             
         context = {
            'musicInfo': music_info,
-           'indices': range(len(music_info))  # Create a range of indices
+        #    'indices': range(len(music_info))  # Create a range of indices
         }
         # music_info = search_songs(token, selected_mood)
         return render(request, 'api/search1.html', context)
-        # return render(request, 'api/search.html', {'musicInfo': music_info})
-    # else:
-        # return render(request, 'api/search.html', {'musicInfo': music_info})
+
 def check_session(request):
     # Print all session data
     print(request.session.items())  # This will display all session keys and values

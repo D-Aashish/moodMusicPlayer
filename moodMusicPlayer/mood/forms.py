@@ -1,11 +1,7 @@
 from django import forms
 from  .models import Moods
 
-# class MoodsForm(forms.ModelForm):
-#     class Meta:
-#         model = Moods
-#         fields = ["MOODLIST"]
-        # moods_list= forms.ModelChoiceField(queryset=Moods.objects.all())
+moods_list= forms.ModelChoiceField(queryset=Moods.objects.all())
 
 class MoodsForm(forms.ModelForm):
     class Meta:
@@ -17,6 +13,6 @@ class MoodsForm(forms.ModelForm):
             'type': forms.Select(attrs={'class': 'form-control'}),
         }
         labels = {
-            'name': 'Mood Name',
+            # 'name': 'Mood Name',
             'type': 'Select Mood',
         }       

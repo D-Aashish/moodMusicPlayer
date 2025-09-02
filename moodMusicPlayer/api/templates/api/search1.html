@@ -1,19 +1,37 @@
 {% extends "layout.html" %}
+{% block title %} Songs for your mood {% endblock %}
 
-{% block title %}
-Home Page
-{% endblock %}
+{% block content %}
+<h2>Songs for your mood</h2>
 
-{% block content %} 
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title"> THIS IS AFTER SELECTING THE MOOD</h5>
-    </div>
-  </div>
-
-  <audio controls>
-    <source src="{{ audio_url }}" type="audio/mpeg"> <!-- Change 'audio/mpeg' if your audio type is different -->
-    Your browser does not support the audio tag.
-  </audio>
- 
+{% if musicInfo %}
+  {% if musicInfo.0.error %}
+    <p style="color: red;">{{ musicInfo.0.error }}</p>
+  {% else %}
+    {% for song in musicInfo %}
+      <div class="card my-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ song.title }}</h5>
+          <p class="card-text">Artist: {{ song.artist }}</p>
+          <p class="card-text">Album: {{ song.album }}</p>
+          {% if song.preview_url %}
+            <audio controls>
+              <source src="{{ song.preview_url }}" type="audio/mpeg">
+              Your browser does not support the audio tag.
+            </audio>
+          {% else %}
+            <p>No preview available.</p>
+          {% endif %}
+          {% if song.image_url %}
+            <img src="{{ song.image_url }}" alt="Album Cover" style="max-width: 150px; margin-top: 10px;">
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p>No songs found for this mood.</p>
+    {% endfor %}
+  {% endif %}
+{% else %}
+  <p>No mood selected yet.</p>
+{% endif %}
 {% endblock %}
