@@ -66,8 +66,8 @@ def getsongView(request):
         mood_instance = Moods.objects.filter(type=selected_mood_type).first()
         print("Mood instance found:", mood_instance)
 
-        if token_data and 'access_token' in token_data:
-            token = token_data['access_token']
+        # if token_data:
+        #     token = token_data
         #     mood_instance = Moods.objects.filter(type=selected_mood_type).first()
         #     print("Mood instance found:", mood_instance)
 

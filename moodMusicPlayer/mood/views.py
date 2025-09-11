@@ -28,11 +28,19 @@ def index(request):
             print("✅ Mood selected:", mood)
 
         token_data = get_token(client_id, client_secret)
+        print("this is client id")
+        print(client_id)
+        print("this is client secret")
+        print(client_secret)
+
+        print("this is token")
+        print(token_data)
+        print("this is after token")
 
         form = MoodsForm(request.POST)
 
-        if token_data and 'access_token' in token_data:
-            token = token_data['access_token']
+        if token_data:
+            token = token_data
             request.session['spotify_token'] = token  # Store the token in the session
             form = MoodsForm(request.POST)
             if form.is_valid():
@@ -49,6 +57,8 @@ def index(request):
                     'error': 'Please select a valid mood.'
                 })
         else:
+            # print(token_data)
+            # print("this is after token")
             print("❌ Failed to retrieve Spotify token in index view.")
             # Optionally handle the error, e.g., display a message to the user
             return render(request, 'mood/index.html', {'form': MoodsForm(), 'error': 'Failed to connect to Spotify.'})
