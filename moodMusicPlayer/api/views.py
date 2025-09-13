@@ -11,8 +11,6 @@ SPOTIFY_TOKEN = os.environ.get('CLIENT_ID')
 
 load_dotenv()
 
-
-
 client_id = os.environ.get("CLIENT_ID")
 client_secret = os.environ.get("CLIENT_SECRET")
 
@@ -49,9 +47,10 @@ def song_url(request):
     url = get_songs(token, artistId)
     return render(request,'api/song.html', {'audio_url':url})
 
-def getsongView(request):
+def getsongView(request,token):
     selected_mood_type = request.session.get('selected_mood', None)
     spotify_token = request.session.get('spotify_token', None)
+    
     print("Selected Mood from session:", selected_mood_type)
     print("Spotify Token from session:", spotify_token)
     # retrieve the selected mood from the session
@@ -60,11 +59,9 @@ def getsongView(request):
 
     if selected_mood_type and spotify_token:
         # retrieve token from .env
-        token_data = get_token(client_id, client_secret)
-        # mood_instance = Moods.objects.filter(type=selected_mood_type).first()
-        # print("Mood instance found:", mood_instance)
         mood_instance = Moods.objects.filter(type=selected_mood_type).first()
         print("Mood instance found:", mood_instance)
+        print("Mood found:", Moods)
 
         # if token_data:
         #     token = token_data
@@ -72,9 +69,9 @@ def getsongView(request):
         #     print("Mood instance found:", mood_instance)
 
         if mood_instance:
-                    music_info = search_songs(token, mood_instance.type)
+                    music_info = search_songs(token, mood_instance)
+                    # music_info = search_songs(token, mood_instance.type)
                     print("Fetched songs:", music_info)
-                # music_info = search_songs(token,mood_instance)
         else:
                     # music_info = []
                     print("No mood instance found.")
@@ -125,26 +122,3 @@ def check_mood_in_database(request):
 
 def youtube_play(request):
     return render(request, 'api/yplay.html')
-
-# def get_spotify_genres(request):
-#     access_token = '1POdFZRZbvb...qqillRxMr2z'  # Replace with your token
-#     genres = fetch_spotify_genres(access_token)
-#     return JsonResponse(genres)
-
-# def get_track(request, track_id):
-#     # Set the URL and the authorization token
-#     url = f'https://api.spotify.com/v1/tracks/{track_id}'
-#     headers = {
-#         'Authorization': 'Bearer NgCXRK...MzYjw'
-#     }
-
-#     # Make the GET request
-#     response = requests.get(url, headers=headers)
-
-#     # Check if the request was successful
-#     if response.status_code == 200:
-#         track_data = response.json()  # Parse the JSON response
-#         return JsonResponse(track_data)  # Return the data as JSON
-#     else:
-#         return JsonResponse({'error': response.text}, status=response.status_code)
-    # return render(request, 'musicapp/tracks.html', {'tracks': tracks})

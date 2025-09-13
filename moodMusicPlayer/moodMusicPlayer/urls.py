@@ -25,7 +25,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('mood/', include('mood.urls')),
     path('api/', include('api.urls')),
-    path('news/', include('news.urls')),
     path('registration/', include('registration.urls')),
     path('registration/', include('django.contrib.auth.urls')),
 

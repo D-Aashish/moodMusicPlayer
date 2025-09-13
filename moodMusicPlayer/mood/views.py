@@ -48,7 +48,7 @@ def index(request):
                 # store the mood selected in database
                 request.session["selected_mood"] = mood_instance.type
                 # saves the selected mood type in the session dictionary under the key
-                return getsongs(request)
+                return getsongs(request,token)
 
             else:
                 print("❌ Form is not valid:", form.errors)
