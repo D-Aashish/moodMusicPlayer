@@ -7,6 +7,7 @@ from .models import Moods
 from .forms import MoodsForm
 
 from api.views import getsongView as getsongs
+from api.spotify_utils import store_access_token as storeToken
 # from api.spotify_utils import get_songs as getsongs
 from api.spotify_utils import get_token, search_songs
 
@@ -42,6 +43,7 @@ def index(request):
         if token_data:
             token = token_data
             request.session['spotify_token'] = token  # Store the token in the session
+            storeToken(token)
             form = MoodsForm(request.POST)
             if form.is_valid():
                 mood_instance = form.save()
@@ -57,8 +59,6 @@ def index(request):
                     'error': 'Please select a valid mood.'
                 })
         else:
-            # print(token_data)
-            # print("this is after token")
             print("❌ Failed to retrieve Spotify token in index view.")
             # Optionally handle the error, e.g., display a message to the user
             return render(request, 'mood/index.html', {'form': MoodsForm(), 'error': 'Failed to connect to Spotify.'})
