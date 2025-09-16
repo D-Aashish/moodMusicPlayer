@@ -51,9 +51,8 @@ def getsongView(request,token):
     selected_mood_type = request.session.get('selected_mood', None)
     spotify_token = request.session.get('spotify_token', None)
     
-    print("Selected Mood from session:", selected_mood_type)
-    print("Spotify Token from session:", spotify_token)
-    # retrieve the selected mood from the session
+    # print("Selected Mood from session:", selected_mood_type)
+    # print("Spotify Token from session:", spotify_token)
     mood_instance = None
     music_info = []
 
@@ -61,16 +60,15 @@ def getsongView(request,token):
         # retrieve token from .env
         mood_instance = Moods.objects.filter(type=selected_mood_type).first()
         print("Mood instance found:", mood_instance)
-        print("Mood found:", Moods)
 
-        # if token_data:
-        #     token = token_data
+        # if token:
+        #     # token = token_data
         #     mood_instance = Moods.objects.filter(type=selected_mood_type).first()
         #     print("Mood instance found:", mood_instance)
 
         if mood_instance:
-                    music_info = search_songs(token, mood_instance)
-                    # music_info = search_songs(token, mood_instance.type)
+                    # music_info = search_songs(token, mood_instance)
+                    music_info = search_songs(token, mood_instance.type)
                     print("Fetched songs:", music_info)
         else:
                     # music_info = []
