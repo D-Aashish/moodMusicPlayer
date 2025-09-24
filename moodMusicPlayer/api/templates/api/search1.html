@@ -6,38 +6,41 @@
 <h2>Songs for your mood</h2>
 
 {% if musicInfo %}
-    {% for song in musicInfo %}
-        <div class="card my-3">
-          <div class="card-body">
-            <p class="card-text">Artist: {{ song.name }}</p>
-            <img src="{{ song.image }}" alt="image not found" style="max-width: 150px;">
+    {% for track in musicInfo %}
+            <div class="track-card" style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                <!-- Album Image -->
+                <img src="{{ track.album_image }}" alt="{{ track.name }}" width="150">
 
-            {% if song.tracks %}
-              {% for track in song.tracks %}
-              <p class="card-text">Album: {{ track.name }}</p>
-              <h5 class="card-title">{{ track.name }}</h5>
-              {% comment %} <img src="{{ track.image }}" alt="image not found" style="max-width: 150px;"> {% endcomment %}
-                <img src="{{ track.album_image }}" alt="image not found" style="max-width: 150px;">
+                <!-- Track Details -->
+                <h3>{{ track.name }}</h3>
+                <p>Artist: {{ track.artist_name }}</p>
+                <p>Album: {{ track.album_name }}</p>
+                <p>Released: {{ track.releasedate }}</p>
+                <p>Duration: {{ track.duration|divisibleby:60 }}:{% widthratio track.duration 60 60 %} min</p>
 
-                {% if track.audio %}
-                  <audio controls>
+                <!-- Audio Player -->
+                <audio controls>
                     <source src="{{ track.audio }}" type="audio/mpeg">
-                    Your browser does not support the audio tag.
-                  </audio>
-                {% else %}
-                  <p>No preview available.</p>
+                    Your browser does not support the audio element.
+                </audio>
+
+                <!-- Links -->
+                <p>
+                    <a href="{{ track.prourl }}" target="_blank">License Info</a> |
+                    <a href="{{ track.audiodownload }}" target="_blank">Download</a> |
+                    <a href="{{ track.shareurl }}" target="_blank">Share</a>
+                </p>
+
+                <!-- Music Tags -->
+                {% if track.musicinfo.tags.genres %}
+                    <p>Genres: {{ track.musicinfo.tags.genres|join:", " }}</p>
                 {% endif %}
-              {% empty %}
-                <p>No tracks available for this song.</p>
-              {% endfor %}
-            {% else %}
-              <p>No tracks available for this artist.</p>
-            {% endif %}
-          </div>
-        </div>
-    {% empty %}
-        <p>No songs found for this mood.</p>
-    {% endfor %}
+                {% if track.musicinfo.tags.vartags %}
+                    <p>Vartags: {{ track.musicinfo.tags.vartags|join:", " }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
 {% else %}
     <p>No mood selected yet.</p>
 {% endif %}

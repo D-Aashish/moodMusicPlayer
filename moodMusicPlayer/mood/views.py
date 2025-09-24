@@ -19,17 +19,17 @@ client_secret = os.environ.get("CLIENT_SECRET")
 
 def index(request):
     if request.method == 'POST':
-        mood = request.POST.get("type")
-        if not mood:print("No mood selected!")
-        else:print("Mood selected:", mood)
+        # mood = request.POST.get("type")
+        # if not mood:print("No mood selected!")
+        # else:print("Mood selected:", mood)
         form = MoodsForm(request.POST)
         if form.is_valid():
             mood_instance = form.save()
             request.session["selected_mood"] = mood_instance.type
-            return getsongs(request)  
+            return getsongs(request,mood_instance)  
         else:
-                print("Form is not valid:", form.errors)
-                return render(request, 'mood/index.html', {
+            print("Form is not valid:", form.errors)
+            return render(request, 'mood/index.html', {
                     'form': form,
                     'error': 'Please select a valid mood.'
                 })
