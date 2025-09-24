@@ -91,23 +91,21 @@ client_id = os.environ.get("CLIENT_ID")
 
 
 def search_songs(mood):
-    print("Searching Spotify for mood:", mood)
-    # url = "https://api.spotify.com/v1/search"
+    print("spotify_utils mood:", mood)
     url = f"https://api.jamendo.com/v3.0/artists/tracks/"
-    # headers = get_auth_header(token)
-    mood_genre_map = {
-    'happy': ['pop', 'dance', 'upbeat'],
-    'sad': ['blues', 'melancholic', 'slow'],
-    'angry': ['rock', 'metal', 'intense'],
-    }
-    genre = mood
-    # selected_genres = mood_genre_map[selected_mood]
-    # for genre in selected_genres:
+    # mood_genre_map = {
+    # 'happy': ['pop', 'dance', 'upbeat'],
+    # 'sad': ['blues', 'melancholic', 'slow'],
+    # 'angry': ['rock', 'metal', 'intense'],
+    # }
+    genres = mood
+    print("Genres being searched for:", genres)
+    # genre = mood_genre_map.get(mood, mood)
     params = {
             'client_id': client_id,
-            'format': 'jsonpretty',
-            'tags': genre,  # Pass the relevant genre as tag
-            'order': 'track_name_desc',
+            # 'format': 'jsonpretty',
+            'tags': genres,  # Pass the relevant genre as tag
+            # 'order': 'track_name_desc',
             'limit': 2
         }
     response = requests.get(url, params=params)
@@ -115,20 +113,13 @@ def search_songs(mood):
     if response.status_code == 200:
         data = response.json()
         if data.get('results'):
-            print("Fetched Tracks:", data['results'])
+            # print("Fetched Tracks:", data['results'])
             return data['results']
         else:
             print("No tracks found based on the given parameters.")
     else:
         print(f"Failed to fetch tracks. Status code: {response.status_code}")
         print("Raw Response:", response.text)
-    # query = f"?q={mood}&type=track&limit=5"  # Adjust the limit if you want more results
-    # query_url = url + query
-    # print("Query URL:", query_url)
-
-    # result = requests.get(query_url, headers=headers)
-    # print("Result status:", result.status_code)
-
     # try:
     #     result.raise_for_status()
     #     result_data = result.json().get("tracks", {}).get("items", [])

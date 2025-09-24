@@ -22,35 +22,17 @@ def index(request):
         mood = request.POST.get("type")
         if not mood:print("No mood selected!")
         else:print("Mood selected:", mood)
-
-        # token_data = get_token(client_id, client_secret)
-        # if token_data:
-        #     token = token_data
-        #     request.session['spotify_token'] = token
-        #     storeToken(token)  # Store the token
-            
         form = MoodsForm(request.POST)
-
         if form.is_valid():
-            # mood = form.cleaned_data['type']
             mood_instance = form.save()
             request.session["selected_mood"] = mood_instance.type
-            return getsongs(request)
-                
-        #     else:
-        #         print("Form is not valid:", form.errors)
-        #         return render(request, 'mood/index.html', {
-        #             'form': form,
-        #             'error': 'Please select a valid mood.'
-        #         })
-        
-        # else:
-        #     print("Failed to retrieve Spotify token.")
-        #     return render(request, 'mood/index.html', {
-        #         'form': MoodsForm(),
-        #         'error': 'Failed to connect to Spotify.'
-        #     })
-    
+            return getsongs(request)  
+        else:
+                print("Form is not valid:", form.errors)
+                return render(request, 'mood/index.html', {
+                    'form': form,
+                    'error': 'Please select a valid mood.'
+                })
     else:
         form = MoodsForm()
         return render(request, 'mood/index.html', {'form': form})
@@ -58,11 +40,6 @@ def index(request):
         
 def music(request):
     selected_mood = request.session.get('selected_mood', None)
-    # token = get_token(client_id, client_secret)
-    # if selected_mood:
-    #     songs = search_songs(token, selected_mood)
-    # else:
-    #     songs = []
     return render(request, 'mood/mood_result.html')
 
 def mood_list(request):
@@ -78,5 +55,4 @@ def mood_view(request):
             return render(request, 'mood_result.html', {'mood': mood})
     else:
         form = MoodForm()
-
     return render(request, 'mood_result.html', {'form': form})

@@ -4,46 +4,42 @@
 
 {% block content %}
 <h2>Songs for your mood</h2>
-<p>music info {{musicInfo}}</p>
-{% if musicInfo %}
-  {% if musicInfo.0.error %}
-    <p style="color: red;">{{ musicInfo.0.error }}</p>
-  {% else %}
-    {% for song in musicInfo %}
-      <div class="card my-3">
-        <div class="card-body">
-          <h5 class="card-title">{{ song.title }}</h5>
-          <p class="card-text">Artist: {{ song.artist }}</p>
-          <p class="card-text">Album: {{ song.album }}</p>
-          
-          <!-- Preview Audio (if available) -->
-          {% if song.preview_url != "No preview available" %}
-            <audio controls>
-              <source src="{{ song.preview_url }}" type="audio/mpeg">
-              Your browser does not support the audio tag.
-            </audio>
-          {% else %}
-            <p>No preview available.</p>
-          {% endif %}
 
-          <!-- Display album image -->
-          {% if song.album_image %}
-            <img src="{{ song.album_image }}" alt="Album Cover" style="max-width: 150px; margin-top: 10px;">
-          {% endif %}
-          
-          <!-- Play on Spotify Button (using Web Player) -->
-          {% if song.spotify_url %}
-            <a href="{{ song.spotify_url }}" target="_blank">
-              <button class="btn btn-primary">Play on Spotify</button>
-            </a>
-          {% endif %}
+{% if musicInfo %}
+    {% for song in musicInfo %}
+        <div class="card my-3">
+          <div class="card-body">
+            <p class="card-text">Artist: {{ song.name }}</p>
+            <img src="{{ song.image }}" alt="image not found" style="max-width: 150px;">
+
+            {% if song.tracks %}
+              {% for track in song.tracks %}
+              <p class="card-text">Album: {{ track.name }}</p>
+              <h5 class="card-title">{{ track.name }}</h5>
+              {% comment %} <img src="{{ track.image }}" alt="image not found" style="max-width: 150px;"> {% endcomment %}
+                <img src="{{ track.album_image }}" alt="image not found" style="max-width: 150px;">
+
+                {% if track.audio %}
+                  <audio controls>
+                    <source src="{{ track.audio }}" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                  </audio>
+                {% else %}
+                  <p>No preview available.</p>
+                {% endif %}
+              {% empty %}
+                <p>No tracks available for this song.</p>
+              {% endfor %}
+            {% else %}
+              <p>No tracks available for this artist.</p>
+            {% endif %}
+          </div>
         </div>
-      </div>
     {% empty %}
-      <p>No songs found for this mood.</p>
+        <p>No songs found for this mood.</p>
     {% endfor %}
-  {% endif %}
 {% else %}
-  <p>No mood selected yet.</p>
+    <p>No mood selected yet.</p>
 {% endif %}
+
 {% endblock %}

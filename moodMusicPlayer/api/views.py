@@ -50,22 +50,19 @@ from mood.models import Moods
 
 def getsongView(request):
     selected_mood_type = request.session.get('selected_mood', None)
-    # spotify_token = request.session.get('spotify_token', None)
-
+    print("Selected mood from session:", selected_mood_type) 
     music_info = []
-
     if selected_mood_type:
         mood_instance = Moods.objects.filter(type=selected_mood_type).first()
         print("Mood instance found:", mood_instance)
-
+        # if mood_instance:music_info = search_songs(mood_instance.type)
         if mood_instance:
-            music_info = search_songs(mood_instance.type)
-            # music_info = search_songs(token, mood_instance.type)
+            music_info = search_songs(mood_instance)
             print("Fetched songs:", music_info)
         else:
             music_info = [{'error': 'Mood instance not found.'}]
             print("No mood instance found.")
-   
+
     context = {'musicInfo': music_info}
     return render(request, 'api/search1.html', context)
 
