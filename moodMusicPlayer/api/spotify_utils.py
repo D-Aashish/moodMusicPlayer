@@ -73,10 +73,10 @@ def fetch_songs_from_jamendo(mood):
         print("Raw API data:", json.dumps(data, indent=2))
         results = data.get("results", [])
         if results:
-                    print("First track example:", json.dumps(results[0], indent=2))
+                print("First track example:", json.dumps(results[0], indent=2))
+                return results
         else:
                 print("No tracks found based on the given parameters.")
-                return results
     else:
         print(f"Failed to fetch tracks. Status code: {response.status_code}")
         print("Raw Response:", response.text)
