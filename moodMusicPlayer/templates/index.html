@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
 {% block title %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -25,6 +25,14 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%;">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+
+        {% if user.is_authenticated %}
+          Hi {{ user.username }}!
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button value="logout" type="submit">Log Out</button>
+          </form>
+        {% endif %}
       </div>
       <div>
         <i class="fa-solid fa-bell fa-xl me-3"></i>
@@ -54,7 +62,7 @@
           <i class="fa-solid fa-microphone fa-xl icon-control"></i>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary btn-lg">Search</button>
+      <button value="mood type="submit" class="btn btn-primary btn-lg">Search</button>
     </form>
 </div>
  

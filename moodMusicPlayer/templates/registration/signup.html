@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
 {% block title %}
 Signup
@@ -8,9 +8,10 @@ Signup
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form action="/submit" method="POST" class="min-vh-100 g-3">
+            <form value="signup" method="POST" class="min-vh-100 g-3">
                 {% csrf_token %}
-                <div class="col-md-6">
+                {{ form }}
+                {% comment %} <div class="col-md-6">
                     <label for="inputUsername" class="form-label">Username</label>
                     <input type="username" class="form-control" name="inputUsername" placeholder="Enter your username" required />
                 </div>
@@ -22,9 +23,9 @@ Signup
                     <label for="inputPassword" class="form-label">Password</label>
                     <input type="password" class="form-control" name="inputPassword" placeholder="Enter your passwword" required />
                 </div>
-                <div class="col-12 mt-4">
+                <div class="col-12 mt-4"> {% endcomment %}
                     <button type="submit" class="btn btn-primary me-3">Signin</button>
-                    <button type="submit" class="btn btn-danger me-3">Signup in with Google</button>
+                    {% comment %} <button type="submit" class="btn btn-danger me-3">Signup in with Google</button> {% endcomment %}
                 </div>
             </form>
         </div>

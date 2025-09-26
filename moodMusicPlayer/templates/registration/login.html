@@ -1,9 +1,11 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 {% block title %} Login {% endblock %}
 {% block content %}
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
+
                 <div class="container">
                     {% if messages %}
                     {% for message in messages  %}
@@ -13,24 +15,31 @@
                     {% endfor %}
                     {% endif %}
                 </div>
-                <form action="{% url 'registration-login' %}" method="POST" class="min-vh-100 g-3">
+
+
+                <form action="" method="POST" class="min-vh-100 g-3">
+
                     {% csrf_token %}
-                    <div class="col-md-6">
+                    {{ form }}
+
+                    {% comment %} <div class="col-md-6">
                         <label for="inputUsername" class="form-label">Username</label>
                         <input type="username" class="form-control" name="inputUsername" placeholder="Enter your username" required />
-                        </div>
+                    </div>
+
                     <div class="col-md-6">
                         <label for="inputPassword" class="form-label">Password</label>
                         <input type="password" class="form-control" name="inputPassword" placeholder="Enter your passwword" required />
                     </div>
+
                     <div class="col-12 mt-4">
-                        <li>
-                            <a href="{% url 'registration-login' %}">Login</a>
-                        </li>
-                        {% comment %} <button type="submit" class="btn btn-primary me-3">Login</button> {% endcomment %}
+                        <li><a href="{% url 'registration-login' %}">Login</a></li> {% endcomment %}
+                    
                         <button type="submit" class="btn btn-primary me-3">Signin</button>
+                        <button type="button" onclick="window.location.href='{% url 'signup' %}'" class="btn btn-primary me-3">Sign Up</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
