@@ -1,16 +1,6 @@
-# import base64
-# from dotenv import load_dotenv , set_key
 import json
 import os
 import requests  
-# import logging
-
-# main_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# dotenv_path = os.path.join(main_dir, '.env')
-
-# # Load environment variables from .env file
-# load_dotenv(dotenv_path)
 
 client_id = os.environ.get("CLIENT_ID")
 # client_secret = os.environ.get("CLIENT_SECRET")
@@ -80,29 +70,3 @@ def fetch_songs_from_jamendo(mood):
     else:
         print(f"Failed to fetch tracks. Status code: {response.status_code}")
         print("Raw Response:", response.text)
-    # try:
-    #     result.raise_for_status()
-    #     result_data = result.json().get("tracks", {}).get("items", [])
-        
-    #     if not result_data:
-    #         print("No songs found for this mood.")
-    #         return []
-        
-    #     song_info_list = []
-        
-    #     for track in result_data:
-    #         song_info = {
-    #             "title": track["name"],
-    #             "artist": ", ".join(artist["name"] for artist in track["artists"]),
-    #             "album": track["album"]["name"],
-    #             "preview_url": track["preview_url"] if track["preview_url"] else "No preview available",
-    #             "album_image": track["album"]["images"][0]["url"] if track["album"]["images"] else None,
-    #             # Provide the direct Spotify URL for the track (not URI)
-    #             "spotify_url": track["external_urls"]["spotify"]  # Full URL for the song on Spotify
-    #         }
-    #         song_info_list.append(song_info)
-
-    #     return song_info_list
-    # except requests.exceptions.RequestException as e:
-    #     print(f"Error searching songs: {e}")
-    #     return []

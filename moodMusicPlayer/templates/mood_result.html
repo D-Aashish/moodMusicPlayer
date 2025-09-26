@@ -16,8 +16,6 @@
       {% for song in musicInfo  %}
       <div class="song-card" style="margin-bottom: 20px;">
           <h6 class="song-title">{{ song.title }}</h6>
-          {% comment %} <p><strong>Artist:</strong> {{ song.artist }}</p> {% endcomment %}
-    {% comment %} <p><strong>Album:</strong> {{ song.album }}</p> {% endcomment %}
     {% if song.image_url %}
     <img src="{{ song.image_url }}" alt="Album Art" style="width: 100px;">
     {% endif %}
