@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -36,7 +37,7 @@
       </div>
       <div>
         <i class="fa-solid fa-bell fa-xl me-3"></i>
-        <i class="fa-solid fa-user fa-xl"></i>
+        <i class="fa-solid fa-user fa-xl" id="userProfile" ></i>
       </div>
     </div>
   </div>
@@ -64,8 +65,20 @@
       </div>
       <button value="mood" name="action" type="submit" class="btn btn-primary btn-lg">Search</button>
     </form>
+
+    {% comment %} <button {% endcomment %}
+    {% comment %} <a href="{% static 'temp.html' %}" class="btn btn-primary">Theme Test</a> {% endcomment %}
+      {% comment %} /button> {% endcomment %}
 </div>
  
 </div>
 </div>
 {% endblock %}
+
+
+<script>
+   document.getElementById('userProfile').addEventListener('click', () => {
+    alert('User icon clicked!');
+    // additional logic here
+  });
+</script>

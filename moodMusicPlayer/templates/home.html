@@ -1,0 +1,128 @@
+{% load static %}
+
+
+{% block title %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+{% endblock %}
+
+<link rel="stylesheet" href="{%static 'home.css' %}">
+
+{% block content %}    
+  <div class="dashboard-container">
+    <div class="sidebar">
+         <div class="sidebar-home">
+            {% comment %} <h3 class="sidebar-section-title">Home</h3> {% endcomment %}
+            <nav class="sidebar-menu">
+            <a href="#" class="menu-item">Home</a>
+            <a href="#" class="menu-item">Search</a>
+            <a href="#" class="menu-item">Your Library</a>
+            </nav>
+        </div>
+
+        <div class="sidebar-my-music">
+            <h3 class="sidebar-section-title">My Music</h3>
+            <nav class="sidebar-menu">
+            <a href="#" class="menu-item">Songs</a>
+            <a href="#" class="menu-item">Albums</a>
+            <a href="#" class="menu-item">Artists</a>
+            </nav>
+        </div>
+
+        <div class="sidebar-playlists">
+            <h3 class="sidebar-section-title">Playlists</h3>
+            <nav class="sidebar-menu playlists-list">
+            <a href="#" class="menu-item">Playlist 1</a>
+            <a href="#" class="menu-item">Playlist 2</a>
+            <a href="#" class="menu-item">Playlist 3</a>
+            <!-- Add more playlists as needed -->
+            </nav>
+        </div>
+    </div>
+    <div class="main">
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="menu-icon">⋮⋮</div>
+                <input type="text" placeholder="Search" class="search-input" />
+            </div>
+            <div class="divider"></div>
+            <div class="topbar-right">
+                <button class="notification-btn">🔔</button>
+                <button class="settings-btn">⚙️</button>
+        </div>
+        </div>
+        <div class="artists">
+            <div class="artist-card">
+                <img src="artist1.jpg" alt="Stoney" />
+                <h4>Stoney</h4>
+                <p>Post Malone</p>
+            </div>
+             <div class="artist-card">
+                <img src="artist2.jpg" alt="Blue Neighbour" />
+                <h4>Blue Neighbour</h4>
+                <p>Troye Sivan</p>
+            </div>
+        </div>
+        <div class="musciPlayed">
+           <div class="music-section">
+            <section class="now-playing">
+                <h3>Now Playing</h3>
+                <!-- Now playing content here -->
+            </section>
+
+            <section class="mostly-played">
+                <h3>Mostly Played ❤️</h3>
+                <div class="song-row">
+                    <span class="track-num">01</span>
+                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    <div class="song-info">
+                        <h4>Rockstar</h4>
+                        <p>Post Malone</p>
+                    </div>
+                    <span class="duration">4:31</span>
+                    <span class="track-num">01</span>
+                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    <div class="song-info">
+                        <h4>Rockstar</h4>
+                        <p>Post Malone</p>
+                    </div>
+                    <span class="duration">4:31</span>
+                    <span class="track-num">01</span>
+                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    <div class="song-info">
+                        <h4>Rockstar</h4>
+                        <p>Post Malone</p>
+                    </div>
+                    <span class="duration">4:31</span>
+                    <span class="track-num">01</span>
+                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    <div class="song-info">
+                        <h4>Rockstar</h4>
+                        <p>Post Malone</p>
+                    </div>
+                    <span class="duration">4:31</span>
+                    <span class="track-num">01</span>
+                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    <div class="song-info">
+                        <h4>Rockstar</h4>
+                        <p>Post Malone</p>
+                    </div>
+                    <span class="duration">4:31</span>
+                    <span class="track-num">01</span>
+                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    <div class="song-info">
+                        <h4>Rockstar</h4>
+                        <p>Post Malone</p>
+                    </div>
+                    <span class="duration">4:31</span>
+                </div>
+            </section>
+
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+<script>
+   
+</script>
