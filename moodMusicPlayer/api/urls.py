@@ -1,7 +1,7 @@
 from django.urls import path
-# from .views import categories_view, tracks_view , spotify , sdk, song_url, getsong
-from .views import *
+# from .views import *
+from .import views 
 
 urlpatterns = [
-
+        path('', views.api_get_songs, name='api_get_songs'),
 ]

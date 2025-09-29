@@ -47,3 +47,19 @@
 {% endif %}
 
 {% endblock %}
+
+<script>
+    function playMusic(songs) {
+  if (!songs.length) {
+    alert("No songs found");
+    return;
+  }
+
+  const audio = document.getElementById("audioPlayer");
+  audio.src = songs[0].audio;
+  audio.play();
+
+  // Optionally update UI with song info here
+}
+
+</script>

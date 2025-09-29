@@ -44,4 +44,4 @@ def mood_view(request):
     return render(request, 'mood_result.html', {'form': form})
 
 def test(request):
-    return render(request, "temp.html")
+    return render(request, "home.html")

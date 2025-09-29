@@ -64,6 +64,14 @@ def fetch_songs_from_jamendo(mood):
         results = data.get("results", [])
         if results:
                 print("First track example:", json.dumps(results[0], indent=2))
+                 # Select only necessary fields
+        #     filtered_results = [{
+        #         "id": r["id"],
+        #         "name": r["name"],
+        #         "artist_name": r["artist_name"],
+        #         "audio": r["audio"],
+        #         # add other needed fields
+        #     } for r in results]
                 return results
         else:
                 print("No tracks found based on the given parameters.")

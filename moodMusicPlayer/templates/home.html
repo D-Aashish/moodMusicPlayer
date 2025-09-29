@@ -1,17 +1,14 @@
 {% load static %}
-
-
-{% block title %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-{% endblock %}
-
-<link rel="stylesheet" href="{%static 'home.css' %}">
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="{%static 'home.css' %}">
+</head>
 {% block content %}    
   <div class="dashboard-container">
     <div class="sidebar">
          <div class="sidebar-home">
-            {% comment %} <h3 class="sidebar-section-title">Home</h3> {% endcomment %}
             <nav class="sidebar-menu">
             <a href="#" class="menu-item">Home</a>
             <a href="#" class="menu-item">Search</a>
@@ -34,7 +31,6 @@
             <a href="#" class="menu-item">Playlist 1</a>
             <a href="#" class="menu-item">Playlist 2</a>
             <a href="#" class="menu-item">Playlist 3</a>
-            <!-- Add more playlists as needed -->
             </nav>
         </div>
     </div>
@@ -42,7 +38,7 @@
         <div class="topbar">
             <div class="topbar-left">
                 <div class="menu-icon">⋮⋮</div>
-                <input type="text" placeholder="Search" class="search-input" />
+                <input type="text" placeholder="Search" class="search-input" id="searchInput" />
             </div>
             <div class="divider"></div>
             <div class="topbar-right">
@@ -52,12 +48,12 @@
         </div>
         <div class="artists">
             <div class="artist-card">
-                <img src="artist1.jpg" alt="Stoney" />
+                {% comment %} <img src="artist1" alt="Stoney" /> {% endcomment %}
                 <h4>Stoney</h4>
                 <p>Post Malone</p>
             </div>
              <div class="artist-card">
-                <img src="artist2.jpg" alt="Blue Neighbour" />
+                {% comment %} <img src="artist2.jpg" alt="Blue Neighbour" /> {% endcomment %}
                 <h4>Blue Neighbour</h4>
                 <p>Troye Sivan</p>
             </div>
@@ -73,42 +69,42 @@
                 <h3>Mostly Played ❤️</h3>
                 <div class="song-row">
                     <span class="track-num">01</span>
-                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
                     <div class="song-info">
                         <h4>Rockstar</h4>
                         <p>Post Malone</p>
                     </div>
                     <span class="duration">4:31</span>
                     <span class="track-num">01</span>
-                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
                     <div class="song-info">
                         <h4>Rockstar</h4>
                         <p>Post Malone</p>
                     </div>
                     <span class="duration">4:31</span>
                     <span class="track-num">01</span>
-                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
                     <div class="song-info">
                         <h4>Rockstar</h4>
                         <p>Post Malone</p>
                     </div>
                     <span class="duration">4:31</span>
                     <span class="track-num">01</span>
-                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
                     <div class="song-info">
                         <h4>Rockstar</h4>
                         <p>Post Malone</p>
                     </div>
                     <span class="duration">4:31</span>
                     <span class="track-num">01</span>
-                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
                     <div class="song-info">
                         <h4>Rockstar</h4>
                         <p>Post Malone</p>
                     </div>
                     <span class="duration">4:31</span>
                     <span class="track-num">01</span>
-                    <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
                     <div class="song-info">
                         <h4>Rockstar</h4>
                         <p>Post Malone</p>
@@ -124,5 +120,29 @@
 
 
 <script>
-   
+     function fetchMusicByMood(mood) {
+     fetch(`/api/?mood=${encodeURIComponent(mood)}`)
+            .then(response => {
+                if (!response.ok) throw new Error("Mood not found or API error");
+          return response.json();
+        })
+        .then(data => {
+            console.log("Fetched songs:", data.songs);
+            // Call your function to play songs here, e.g. playMusic(data.songs)
+        })
+        .catch(error => {
+            console.error("Error fetching songs:", error);
+            alert(error.message);
+        });
+          }
+
+   document.getElementById("searchInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {event.preventDefault();
+            const mood = this.value.trim();
+            if (!mood) {
+        alert("Please enter a mood to search");
+        return;
+      }
+            if (mood !== "") {fetchMusicByMood(mood);}}
+    });
 </script>
