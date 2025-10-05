@@ -44,10 +44,14 @@ html, body {
   letter-spacing: 1.2px;
 }
 
-.sidebar-menu {
+.sidebar-menu,.sidebar-my-music,sidebar-playlists {
   display: flex;
   flex-direction: column;
-  /* gap: 12px; */
+  gap: 12px;
+}
+
+.sidebar-my-music h2,.sidebar-playlists h2{
+  color: #c0bfbf;
 }
 .btn1,.btn2,.btn3{
   height:10px;
@@ -77,8 +81,15 @@ html, body {
   font-size: 16px;
   padding: 6px 10px;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px; 
   transition: background-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
+}
+.menu-item.icon{
+  margin-right: 8px;
+    color: #000000;
 }
 
 .menu-item:hover,
@@ -95,7 +106,7 @@ html, body {
 }
 
 .main {
-  background-color: rgba(54, 162, 235, 0.2);
+  background-color: rgba(184, 175, 186, 0.2);
   padding: 20px;
   overflow-y: auto;
   display: flex;
@@ -105,19 +116,13 @@ html, body {
 
 
 .topbar {
-  background-color: rgba(255, 206, 86, 0.3);
+  /* background-color:  rgba(184, 175, 186, 0.2); */
   height: 60px; 
-  border-radius: 8px;
-}
-
-.topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  background-color: #fff;
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 1px 0 0 #ddd;
+
   gap: 15px;
 }
 
