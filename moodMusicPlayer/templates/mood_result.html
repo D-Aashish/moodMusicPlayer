@@ -45,6 +45,10 @@
           <div class="song-section">
             <div class="song-thumbnail">
               <img src="{{ track.album_image }}" alt="{{ track.name }}" width="150">
+              <audio controls>
+                  <source src="{{ track.audio }}" type="audio/mpeg">
+                  Your browser does not support the audio element.
+              </audio>
             </div>
 
             <div class="songPlay"><h3>{{ track.name }}</h3>
@@ -52,15 +56,9 @@
                 <p>Album: {{ track.album_name }}</p>
                 <p>Released: {{ track.releasedate }}</p>
                 <p>Duration: {{ track.duration|divisibleby:60 }}:{% widthratio track.duration 60 60 %} min</p>
-                <audio controls>
-                    <source src="{{ track.audio }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p>
-                    <a href="{{ track.prourl }}" target="_blank">License Info</a> |
+                {% comment %} <p>
                     <a href="{{ track.audiodownload }}" target="_blank">Download</a> |
-                    <a href="{{ track.shareurl }}" target="_blank">Share</a>
-                </p>
+                </p> {% endcomment %}
 
       
             </div>
