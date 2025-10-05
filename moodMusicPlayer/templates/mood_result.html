@@ -1,32 +1,83 @@
-{% extends "base.html" %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="{%static 'home.css' %}">
+    <link rel="stylesheet" href="{%static 'mood_result.css' %}">
+</head>
+{% block content %}    
+  <div class="dashboard-container">
+    <div class="sidebar">
+         <div class="sidebar-home">
+            <nav class="sidebar-menu">
+            <a href="#" class="menu-item">Home</a>
+            <a href="#" class="menu-item">Search</a>
+            <a href="#" class="menu-item">Your Library</a>
+            </nav>
+        </div>
 
-{% block title %}
+        <div class="sidebar-my-music">
+            <h3 class="sidebar-section-title">My Music</h3>
+            <nav class="sidebar-menu">
+            <a href="#" class="menu-item">Songs</a>
+            <a href="#" class="menu-item">Albums</a>
+            <a href="#" class="menu-item">Artists</a>
+            </nav>
+        </div>
 
-{% endblock %}
+        <div class="sidebar-playlists">
+            <h3 class="sidebar-section-title">Playlists</h3>
+            <nav class="sidebar-menu playlists-list">
+            <a href="#" class="menu-item">Playlist 1</a>
+            <a href="#" class="menu-item">Playlist 2</a>
+            <a href="#" class="menu-item">Playlist 3</a>
+            </nav>
+        </div>
+    </div>
 
-{% block content %} 
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title"> API FOR MUSIC</h5>
-      <h5 class="card-title"> Play</h5>
+    <div class="main">
+      <div class="top-section">this is the top section </div>
+
+      <div class="song-list-section">
+        {% if musicInfo %}
+          {% for track in musicInfo %}
+          <div class="song-section">
+            <div class="song-thumbnail">
+              <img src="{{ track.album_image }}" alt="{{ track.name }}" width="150">
+            </div>
+
+            <div class="songPlay"><h3>{{ track.name }}</h3>
+                <p>Artist: {{ track.artist_name }}</p>
+                <p>Album: {{ track.album_name }}</p>
+                <p>Released: {{ track.releasedate }}</p>
+                <p>Duration: {{ track.duration|divisibleby:60 }}:{% widthratio track.duration 60 60 %} min</p>
+                <audio controls>
+                    <source src="{{ track.audio }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p>
+                    <a href="{{ track.prourl }}" target="_blank">License Info</a> |
+                    <a href="{{ track.audiodownload }}" target="_blank">Download</a> |
+                    <a href="{{ track.shareurl }}" target="_blank">Share</a>
+                </p>
+
+      
+            </div>
+
+          </div>
+                 {% endfor %}
+
+        {% else %}
+          <p>No mood selected yet.</p>
+        {% endif %}
+      </div>
+
     </div>
   </div>
-  <div class="content-wrapper">
-
-      {% for song in musicInfo  %}
-      <div class="song-card" style="margin-bottom: 20px;">
-          <h6 class="song-title">{{ song.title }}</h6>
-    {% if song.image_url %}
-    <img src="{{ song.image_url }}" alt="Album Art" style="width: 100px;">
-    {% endif %}
-    {% if song.preview_url %}
-    <audio controls>
-        <source src="{{ song.preview_url }}" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    {% endif %}
-</div>
-{% endfor %}
-</div>
- 
 {% endblock %}
+
+
+<script>
+     
+</script>

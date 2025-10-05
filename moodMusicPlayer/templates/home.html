@@ -34,6 +34,7 @@
             </nav>
         </div>
     </div>
+
     <div class="main">
         <div class="topbar">
             <div class="topbar-left">
@@ -136,6 +137,10 @@
         });
           }
 
+        function playMusic(songsData){
+
+        }
+
    document.getElementById("searchInput").addEventListener("keydown", function(event) {
         if (event.key === "Enter") {event.preventDefault();
             const mood = this.value.trim();
@@ -143,6 +148,9 @@
         alert("Please enter a mood to search");
         return;
       }
-            if (mood !== "") {fetchMusicByMood(mood);}}
+            if (mood !== "") 
+            {
+                //fetchMusicByMood(mood);
+            window.location.href = `/search/?mood=${encodeURIComponent(mood)}`;}}
     });
 </script>

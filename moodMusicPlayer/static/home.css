@@ -67,11 +67,11 @@ html, body {
 .playlists-list {
   max-height: 200px;
   overflow-y: auto;
-  padding-right: 5px; /* give space for scrollbar */
+  padding-right: 5px;
 }
 
 .main {
-  background-color: rgba(54, 162, 235, 0.2); /* light blue */
+  background-color: rgba(54, 162, 235, 0.2);
   padding: 20px;
   overflow-y: auto;
   display: flex;
@@ -81,15 +81,15 @@ html, body {
 
 
 .topbar {
-  background-color: rgba(255, 206, 86, 0.3); /* light yellow */
-  height: 60px; /* example height */
+  background-color: rgba(255, 206, 86, 0.3);
+  height: 60px; 
   border-radius: 8px;
 }
 
 .topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* push sections apart */
+  justify-content: space-between;
   padding: 10px 20px;
   background-color: #fff;
   border-radius: 8px 8px 0 0;
@@ -99,7 +99,7 @@ html, body {
 
 .divider {
   width: 1px;
-  height: 30px; /* adjust as needed */
+  height: 30px;
   background-color: #ddd;
 }
 

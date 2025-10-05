@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     print("POST data:", request.POST)
-
     if request.method == 'POST':
         action = request.POST.get('action')
         print("Action received:", action)
@@ -23,7 +22,6 @@ def index(request):
                 request.session["selected_mood"] = mood_instance.type
                 songs = getsongs(request,mood_instance)  
                 return songs
-                # return getsongs(request,mood_instance)  
             else:
                 print("Form is not valid:", form.errors)
                 return render(request, 'index.html', {
@@ -33,15 +31,24 @@ def index(request):
         form = MoodsForm()
         return render(request, 'index.html', {'form': form})
 
-def mood_view(request):
-    if request.method == "POST":
-        form = MoodForm(request.POST)
-        if form.is_valid():
-            mood = form.cleaned_data['type']
-            return render(request, 'mood_result.html', {'mood': mood})
-    else:
-        form = MoodForm()
-    return render(request, 'mood_result.html', {'form': form})
 
 def test(request):
     return render(request, "home.html")
+def test2(request):
+    return render(request, "mood_result.html")
+
+def search(request):
+    mood = request.GET.get('mood')
+    if not mood:
+        # return render(request, 'search.html', {'error': 'No mood provided.'})
+        return render(request, 'mood_result.html', {'error': 'No mood provided.'})
+    
+    try:
+        # response = requests.get(f'http://localhost:8000/api/?mood={mood}')
+        songs = getsongs(request,mood)
+        print("songs : ", songs)
+        return songs
+    except Exception:
+        songs = []
+        return render(request, 'mood_result.html', {'error': 'no songs found.'})
+    
