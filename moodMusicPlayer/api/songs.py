@@ -1,13 +1,14 @@
 import json
 import os
 import requests  
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client_id = os.environ.get("CLIENT_ID")
-# client_secret = os.environ.get("CLIENT_SECRET")
 
 def fetch_songs_from_jamendo(mood):
     print("spotify_utils mood:", mood)
-    # mood = mood.type
     url = f"https://api.jamendo.com/v3.0/tracks/"
     mood_genre_map = {
             'HA': ['pop', 'dance', 'upbeat'],
@@ -44,12 +45,10 @@ def fetch_songs_from_jamendo(mood):
     }
     genres = mood_genre_map.get(mood, [mood.lower()])
     tags = ",".join(genres)
-    # tags = mood
-    print("Tags being searched for:", tags)
     params = {
             'client_id': client_id,
             'format': 'jsonpretty',
-            'limit': 2,
+            'limit': 5,
             'fuzzytags': tags,
             "order": "popularity_total",
             "include": "musicinfo",
@@ -64,17 +63,33 @@ def fetch_songs_from_jamendo(mood):
         results = data.get("results", [])
         if results:
                 print("First track example:", json.dumps(results[0], indent=2))
-                 # Select only necessary fields
-        #     filtered_results = [{
-        #         "id": r["id"],
-        #         "name": r["name"],
-        #         "artist_name": r["artist_name"],
-        #         "audio": r["audio"],
-        #         # add other needed fields
-        #     } for r in results]
                 return results
         else:
                 print("No tracks found based on the given parameters.")
     else:
         print(f"Failed to fetch tracks. Status code: {response.status_code}")
         print("Raw Response:", response.text)
+
+def getTopArtist():
+        url = f"https://api.jamendo.com/v3.0/artists/"
+        params = {
+            'client_id': client_id,
+            'format': 'jsonpretty',
+            'limit': 10,
+            "order": "popularity_total",
+        }
+
+        response = requests.get(url, params=params)
+        # print("url" , response.url)
+        if response.status_code == 200:
+                data = response.json()
+                # print("Raw API data:", json.dumps(data, indent=2))
+                results = data.get("results", [])
+                if results:
+                        # print("First track example:", json.dumps(results[0], indent=2))
+                        return results
+                else:
+                        print("No artist found based on the given parameters.")
+        else:
+                print(f"Failed to fetch tracks. Status code: {response.status_code}")
+                print("Raw Response:", response.text)

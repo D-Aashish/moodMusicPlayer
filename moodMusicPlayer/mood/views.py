@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Moods
 from .forms import MoodsForm
 from api.views import getsongView as getsongs
+from api.songs import getTopArtist
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -32,23 +33,25 @@ def index(request):
         return render(request, 'index.html', {'form': form})
 
 
-def test(request):
-    return render(request, "home.html")
+def home(request):
+    Artists = getTopArtist()
+    return render(request, "home.html",{'Artists':Artists})
 def test2(request):
     return render(request, "mood_result.html")
 
 def search(request):
     mood = request.GET.get('mood')
     if not mood:
-        # return render(request, 'search.html', {'error': 'No mood provided.'})
         return render(request, 'mood_result.html', {'error': 'No mood provided.'})
-    
     try:
-        # response = requests.get(f'http://localhost:8000/api/?mood={mood}')
         songs = getsongs(request,mood)
-        print("songs : ", songs)
-        return songs
+        # print("songs : ", songs)
+        return render(request, 'mood_result.html', {'mood': mood})
+        # return songs
     except Exception:
         songs = []
         return render(request, 'mood_result.html', {'error': 'no songs found.'})
     
+def topArtist(request):
+    ()
+    return render(request, "home.html", {'Artists':Artists})
