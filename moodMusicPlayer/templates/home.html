@@ -56,11 +56,18 @@
         </div>
     </div>
 
+    
+
     <div class="main">
         <div class="topbar">
+            <div class="navButtonOut">
+                <div class="btn1"></div>
+                <div class="btn2"></div>
+                <div class="btn3"></div>
+            </div>
             <div class="topbar-left">
                 <div class="menu-icon">⋮⋮</div>
-                <input type="text" placeholder="Search" class="search-input" id="searchInput" />
+                <input type="text" placeholder="Search" size="30" class="search-input" id="searchInput" />
             </div>
             <div class="divider"></div>
             <div class="topbar-right">
@@ -150,17 +157,12 @@
         })
         .then(data => {
             console.log("Fetched songs:", data.songs);
-            // Call your function to play songs here, e.g. playMusic(data.songs)
         })
         .catch(error => {
             console.error("Error fetching songs:", error);
             alert(error.message);
         });
           }
-
-        function playMusic(songsData){
-
-        }
 
    document.getElementById("searchInput").addEventListener("keydown", function(event) {
         if (event.key === "Enter") {event.preventDefault();
@@ -171,20 +173,43 @@
       }
             if (mood !== "") 
             {
-                //fetchMusicByMood(mood);
             window.location.href = `/search/?mood=${encodeURIComponent(mood)}`;}}
     });
 
     const hideSidebar = ()=>{
         const sidebar = document.getElementById("sidebarToggle");
+        const toggleButton = document.querySelector(".navButtonOut");
+
         sidebar.classList.toggle("hidden");
+        if (sidebar.classList.contains("hidden")) {
+            toggleButton.style.display = "block";
+        } else {
+            toggleButton.style.display = "none";
+        }
     }
+
+            document.querySelector('.navButtonOut').addEventListener('click', function(){
+                const toggleButton = document.querySelector(".navButtonOut");
+                const sidebar = document.getElementById("sidebarToggle");
+                const isHidden = sidebar.classList.toggle("hidden");
+                if (isHidden) {
+                    document.querySelector(".dashboard-container").style.gridTemplateColumns = "1fr";
+                    toggleButton.style.display = "block";
+                } else {
+                    document.querySelector(".dashboard-container").style.gridTemplateColumns = "250px 1fr";
+                    toggleButton.style.display = "none";
+                }
+        });
+
 
     document.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".navButton").addEventListener("click", function() {
         console.log("navButton (toggle sidebar) clicked");
-        document.querySelector(".dashboard-container"``).style.gridTemplateColumns = "1fr";
+        document.querySelector(".dashboard-container").style.gridTemplateColumns = "1fr";
+        document.querySelector(".navButton")
     });
+
+
 });
 
 </script>
