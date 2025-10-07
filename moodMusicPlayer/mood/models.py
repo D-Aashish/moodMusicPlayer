@@ -43,3 +43,13 @@ class Moods(models.Model):
 
    def __str__(self):
        return self.name
+
+class TrackPlayed(models.Model):
+    track_id = models.CharField(max_length=255)   # or IntegerField if your track.id is int
+    image_url = models.URLField()
+    audio_url = models.URLField()
+    duration = models.FloatField()  # duration in seconds, float allows fractional seconds
+    played_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Played Track {self.track_id} at {self.played_at}"

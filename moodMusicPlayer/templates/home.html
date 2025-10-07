@@ -79,7 +79,6 @@
 
         <div class="artists">
             <h2>Top Artists</h1>
-
             <div class="artist-card-section">
                 {% if Artists %}
                     {% for results in Artists %}
@@ -91,42 +90,58 @@
                         {% endif %}
                        {% endfor %}
 
-            {% else %}
+                {% else %}
                 <p>No artists found yet.</p>
-            {% endif %}
-                <div class="artist-card">
-                    {% comment %} <img src="artist2.jpg" alt="Blue Neighbour" /> {% endcomment %}
-                    <h4>Blue Neighbour</h4>
-                    <p>Troye Sivan</p>
-                </div>
+                {% endif %}
             </div>
         </div>
+        
         <div class="musciPlayed">
            <div class="music-section">
-            <section class="now-playing">
+            <div class="nowPlaying">
                 <h3>Now Playing</h3>
-            </section>
+                {% comment %} {% if PlayedTracks %} {% endcomment %}
+                {% comment %} <div> {% endcomment %}
+                    {% comment %} <div class="playingMusicImage">
+                        <img src="{{PlayedTrack.image_url}}" alt="playingMusicImage" class="playing-image">
+                        <div class="{{playingMusicArtist}}">This is the artist</div>
+                    </div>
+                    <div class="playingMusicControls">
+                        <audio src="{{PlayedTrack.audio_url}}"></audio>
+                    </div> {% endcomment %}
+                    <div class="playingMusicImage">
+                        <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                            <div class="song-info">
+                                <h4>Rockstar</h4>
+                                <p>Post Malone</p>
+                            </div>
+                    </div>
+                        <div class="playingMusicControls">
+                            <div class="duration">4:31</div>
+                            <div class="track-num">01</div>
+                        </div> 
+                             {% comment %} <span class="track-num">{{ forloop.counter|stringformat:"02d" }}</span> {% endcomment %}
+
+                {% comment %} </div> {% endcomment %}
+                 {% comment %} {% else %} {% endcomment %}
+                {% comment %} <p>No music playing yet.</p> {% endcomment %}
+                {% comment %} {% endif %} {% endcomment %}
+                </div>
 
             <section class="mostly-played">
                 <h3>Mostly Played ❤️</h3>
                 <div class="song-row">
                     {% if MostlyPlayed %}
                         {% for item in MostlyPlayed %}
-                            {% comment %} <span class="track-num">01</span>
-                            <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                         {% if item.image %}
+                            <span class="track-num">{{ forloop.counter|stringformat:"02d" }}</span>
+                            <img src="{{ item.image }}" alt="{{ item.name }}" class="song-thumb" />
                             <div class="song-info">
-                                <h4>Rockstar</h4>
-                                <p>Post Malone</p>
+                                <h4>{{ item.name }}</h4>
+                                <p>{{ item.genre }}</p>
                             </div>
-                            <span class="duration">4:31</span>
-                            <span class="track-num">01</span> {% endcomment %}
-                             <span class="track-num">{{ forloop.counter|stringformat:"02d" }}</span>
-        <img src="{{ item.image_url }}" alt="{{ artist.name }}" class="song-thumb" />
-        <div class="song-info">
-            <h4>{{ artist.name }}</h4>
-            <p>{{ artist.genre }}</p>  <!-- or any other info -->
-        </div>
-        <span class="duration">{{ artist.duration }}</span>
+                            <span class="duration">{{ artist.duration }}</span>
+                            {% endif %}
          {% endfor %}
                     {% else %}
                         <p>No artists found yet.</p>

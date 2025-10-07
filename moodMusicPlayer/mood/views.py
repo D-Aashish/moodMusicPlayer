@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect
-from .models import Moods
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+from .models import Moods, TrackPlayed
 from .forms import MoodsForm
 from api.views import getsongView as getsongs
 from api.songs import getTopArtist, mostPlayedSongs
@@ -37,10 +40,38 @@ def index(request):
 def home(request):
     Artists = getTopArtist()
     MostPlayedSongs = mostPlayedSongs()
-    return render(request, "home.html",{'Artists':Artists, 'MostlyPlayed':MostPlayedSongs})
+    played_track = TrackPlayed.objects.order_by('-played_at').first()
+    print("This is playing right now ",played_track)
+    return render(request, "home.html",{ 'Artists':Artists, 'MostlyPlayed':MostPlayedSongs, 'PlayedTrack': played_track })
 
 def test2(request):
     return render(request, "mood_result.html")
+
+
+@csrf_exempt  # only if you can't set CSRF token properly — better to handle CSRF properly!
+def track_played(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            track_id = data.get('track_id')
+            image_url = data.get('image_url')
+            audio_url = data.get('audio_url')
+            duration = data.get('duration') or 0.0 
+
+            # You can save to your DB here. For now just print/log
+            print(f"Track Played: ID={track_id}, Image={image_url}, Audio={audio_url}, Duration={duration}")
+            played_track = TrackPlayed.objects.create(
+                track_id=track_id,
+                image_url=image_url,
+                audio_url=audio_url,
+                duration=duration
+            )
+
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid method'}, status=405)
+
 
 def search(request):
     mood = request.GET.get('mood')

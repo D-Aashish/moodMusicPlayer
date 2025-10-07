@@ -3,12 +3,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="{%static 'home.css' %}">
-    <link rel="stylesheet" href="{%static 'mood_result.css' %}">
+    <link rel="stylesheet" href="{%static 'css/home.css' %}">
+    <link rel="stylesheet" href="{%static 'css/mood_result.css' %}">
+    <script src="{% static 'js/searchMusicPlay.js' %}"></script>
 </head>
 {% block content %}    
   <div class="dashboard-container">
-    {% comment %} <div class="sidebar">
+    <div class="sidebar">
          <div class="sidebar-home">
             <nav class="sidebar-menu">
             <a href="#" class="menu-item">Home</a>
@@ -34,7 +35,7 @@
             <a href="#" class="menu-item">Playlist 3</a>
             </nav>
         </div>
-    </div> {% endcomment %}
+    </div>
 
     <div class="main">
       <div class="top-section">this is the top section </div>
@@ -46,7 +47,7 @@
             <div class="song-section">
               <div class="song-thumbnail">
                 <img src="{{ track.album_image }}" alt="{{ track.name }}" width="150">
-                <audio controls>
+                <audio controls data-track-id="{{ track.id }}">
                     <source src="{{ track.audio }}" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
@@ -72,3 +73,15 @@
     </div>
   </div>
 {% endblock %}
+    <script>
+        {% comment %} document.addEventListener('DOMContentLoaded', function () {
+            const audioElements = document.querySelectorAll('audio');
+            console.log('Found audio elements:', audioElements.length);
+
+            audioElements.forEach((audio, index) => {
+                audio.addEventListener('play', function () {
+                    console.log(`Track ${index + 1} played`);
+                });
+            });
+        }); {% endcomment %}
+    </script>
