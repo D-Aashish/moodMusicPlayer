@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 client_id = os.environ.get("CLIENT_ID")
+# print("client id : ",client_id)
 
 def fetch_songs_from_jamendo(mood):
     print("spotify_utils mood:", mood)
@@ -48,7 +49,7 @@ def fetch_songs_from_jamendo(mood):
     params = {
             'client_id': client_id,
             'format': 'jsonpretty',
-            'limit': 5,
+            'limit': 2,
             'fuzzytags': tags,
             "order": "popularity_total",
             "include": "musicinfo",
@@ -62,7 +63,7 @@ def fetch_songs_from_jamendo(mood):
         print("Raw API data:", json.dumps(data, indent=2))
         results = data.get("results", [])
         if results:
-                print("First track example:", json.dumps(results[0], indent=2))
+                # print("First track example:", json.dumps(results[0], indent=2))
                 return results
         else:
                 print("No tracks found based on the given parameters.")
@@ -75,7 +76,7 @@ def getTopArtist():
         params = {
             'client_id': client_id,
             'format': 'jsonpretty',
-            'limit': 10,
+            'limit': 20,
             "order": "popularity_total",
         }
 
@@ -93,3 +94,31 @@ def getTopArtist():
         else:
                 print(f"Failed to fetch tracks. Status code: {response.status_code}")
                 print("Raw Response:", response.text)
+
+def mostPlayedSongs():
+        url = f"https://api.jamendo.com/v3.0/tracks/"
+        params = {
+                'client_id': client_id,
+                'format': 'jsonpretty',
+                'limit': 5,
+                'order': 'listens_total',
+                # 'include': 'musicinfo',
+                'groupby': 'artist_id'
+        }
+        response = requests.get(url, params=params)
+
+        if response.status_code == 200:
+                data = response.json()
+                # for track in data['results']:
+                #         print(f"{track['name']} by {track['artist_name']}")
+                results = data.get("results", [])
+                if results:
+                        # print("First track example:", json.dumps(results[0], indent=2))
+                        # print(results)
+                        return results
+                else:
+                        print("No artist found based on the given parameters.")
+        else:
+                print("Error:", response.status_code)
+
+# mostPlayedSongs()

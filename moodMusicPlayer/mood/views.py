@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from .models import Moods
 from .forms import MoodsForm
 from api.views import getsongView as getsongs
-from api.songs import getTopArtist
+from api.songs import getTopArtist, mostPlayedSongs
+from api.songs import fetch_songs_from_jamendo as search_songs
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -35,23 +36,30 @@ def index(request):
 
 def home(request):
     Artists = getTopArtist()
-    return render(request, "home.html",{'Artists':Artists})
+    MostPlayedSongs = mostPlayedSongs()
+    return render(request, "home.html",{'Artists':Artists, 'MostlyPlayed':MostPlayedSongs})
+
 def test2(request):
     return render(request, "mood_result.html")
 
 def search(request):
     mood = request.GET.get('mood')
+    print("mood:", mood)
     if not mood:
+        print("mood inside if :", mood)
         return render(request, 'mood_result.html', {'error': 'No mood provided.'})
+    print("stating mood song selection")
     try:
-        songs = getsongs(request,mood)
-        # print("songs : ", songs)
-        return render(request, 'mood_result.html', {'mood': mood})
-        # return songs
+        print("stating mood song selection inside try")
+        music_info = search_songs(mood)
+        print("search songs complete")
+        context = {'musicInfo': music_info}
+        # print("stating mood song selection")
+        print("songs obatinaed from search_songs: ", context)
+        return render(request, 'mood_result.html', context)
+        # return render(request, 'mood_result.html',{'Songs':songs})
     except Exception:
+        print("stating mood  inside except")
         songs = []
         return render(request, 'mood_result.html', {'error': 'no songs found.'})
     
-def topArtist(request):
-    ()
-    return render(request, "home.html", {'Artists':Artists})

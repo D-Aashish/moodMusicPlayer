@@ -13,6 +13,7 @@ def getsongView(request,mood_instance=None):
             music_info = search_songs(mood_instance.type)
             context = {'musicInfo': music_info}
             return render(request, 'mood_result.html', context)
+            
     return render(request, 'mood_result.html', {
         'musicInfo': [],
         'error': 'No mood selected.'

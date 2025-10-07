@@ -11,7 +11,6 @@
 {% block content %}    
   <div class="dashboard-container">
     <div class="sidebar" id="sidebarToggle">
-
          <div class="sidebar-home">
             <nav class="sidebar-menu">
                 <div class="navButton" onclick="hideSidebar()">
@@ -73,8 +72,8 @@
             <div class="divider"></div>
 
             <div class="topbar-right">
-                <button class="notification-btn">🔔</button>
-                <button class="settings-btn">⚙️</button>
+                <button class="notification-btn"><i class="fa-regular fa-bell" style="color: #000000;"></i></button>
+                <button class="settings-btn"><i class="fa-solid fa-gear" style="color: #030303;"></i></button>
             </div>
         </div>
 
@@ -84,11 +83,12 @@
             <div class="artist-card-section">
                 {% if Artists %}
                     {% for results in Artists %}
-                <div class="artist-card">
-                    <img src="{{results.image}}" alt="{{results.name}}" />
-                    {% comment %} <h4></h4> {% endcomment %}
-                    <p>{{results.name}}</p>
-                </div>
+                    {% if results.image %}
+                            <div class="artist-card">
+                                <img src="{{results.image}}" alt="{{results.name}}" />
+                                <p>{{results.name}}</p>
+                            </div>
+                        {% endif %}
                        {% endfor %}
 
             {% else %}
@@ -110,48 +110,27 @@
             <section class="mostly-played">
                 <h3>Mostly Played ❤️</h3>
                 <div class="song-row">
-                    <span class="track-num">01</span>
-                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
-                    <div class="song-info">
-                        <h4>Rockstar</h4>
-                        <p>Post Malone</p>
-                    </div>
-                    <span class="duration">4:31</span>
-                    <span class="track-num">01</span>
-                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
-                    <div class="song-info">
-                        <h4>Rockstar</h4>
-                        <p>Post Malone</p>
-                    </div>
-                    <span class="duration">4:31</span>
-                    <span class="track-num">01</span>
-                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
-                    <div class="song-info">
-                        <h4>Rockstar</h4>
-                        <p>Post Malone</p>
-                    </div>
-                    <span class="duration">4:31</span>
-                    <span class="track-num">01</span>
-                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
-                    <div class="song-info">
-                        <h4>Rockstar</h4>
-                        <p>Post Malone</p>
-                    </div>
-                    <span class="duration">4:31</span>
-                    <span class="track-num">01</span>
-                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
-                    <div class="song-info">
-                        <h4>Rockstar</h4>
-                        <p>Post Malone</p>
-                    </div>
-                    <span class="duration">4:31</span>
-                    <span class="track-num">01</span>
-                    {% comment %} <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" /> {% endcomment %}
-                    <div class="song-info">
-                        <h4>Rockstar</h4>
-                        <p>Post Malone</p>
-                    </div>
-                    <span class="duration">4:31</span>
+                    {% if MostlyPlayed %}
+                        {% for item in MostlyPlayed %}
+                            {% comment %} <span class="track-num">01</span>
+                            <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
+                            <div class="song-info">
+                                <h4>Rockstar</h4>
+                                <p>Post Malone</p>
+                            </div>
+                            <span class="duration">4:31</span>
+                            <span class="track-num">01</span> {% endcomment %}
+                             <span class="track-num">{{ forloop.counter|stringformat:"02d" }}</span>
+        <img src="{{ item.image_url }}" alt="{{ artist.name }}" class="song-thumb" />
+        <div class="song-info">
+            <h4>{{ artist.name }}</h4>
+            <p>{{ artist.genre }}</p>  <!-- or any other info -->
+        </div>
+        <span class="duration">{{ artist.duration }}</span>
+         {% endfor %}
+                    {% else %}
+                        <p>No artists found yet.</p>
+                    {% endif %}
                 </div>
             </section>
 

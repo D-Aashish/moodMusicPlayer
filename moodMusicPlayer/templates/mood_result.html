@@ -8,7 +8,7 @@
 </head>
 {% block content %}    
   <div class="dashboard-container">
-    <div class="sidebar">
+    {% comment %} <div class="sidebar">
          <div class="sidebar-home">
             <nav class="sidebar-menu">
             <a href="#" class="menu-item">Home</a>
@@ -34,37 +34,35 @@
             <a href="#" class="menu-item">Playlist 3</a>
             </nav>
         </div>
-    </div>
+    </div> {% endcomment %}
 
     <div class="main">
       <div class="top-section">this is the top section </div>
 
       <div class="song-list-section">
+        {% comment %} <p>this is music info {{musicInfo}}</p> {% endcomment %}
         {% if musicInfo %}
           {% for track in musicInfo %}
-          <div class="song-section">
-            <div class="song-thumbnail">
-              <img src="{{ track.album_image }}" alt="{{ track.name }}" width="150">
-              <audio controls>
-                  <source src="{{ track.audio }}" type="audio/mpeg">
-                  Your browser does not support the audio element.
-              </audio>
+            <div class="song-section">
+              <div class="song-thumbnail">
+                <img src="{{ track.album_image }}" alt="{{ track.name }}" width="150">
+                <audio controls>
+                    <source src="{{ track.audio }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+              </div>
+
+              <div class="songPlay"><h3>{{ track.name }}</h3>
+                  <p>Artist: {{ track.artist_name }}</p>
+                  <p>Album: {{ track.album_name }}</p>
+                  <p>Released: {{ track.releasedate }}</p>
+                  <p>Duration: {{ track.duration|divisibleby:60 }}:{% widthratio track.duration 60 60 %} min</p>
+                  {% comment %} <p>
+                      <a href="{{ track.audiodownload }}" target="_blank">Download</a> |
+                  </p> {% endcomment %}
+              </div>
             </div>
-
-            <div class="songPlay"><h3>{{ track.name }}</h3>
-                <p>Artist: {{ track.artist_name }}</p>
-                <p>Album: {{ track.album_name }}</p>
-                <p>Released: {{ track.releasedate }}</p>
-                <p>Duration: {{ track.duration|divisibleby:60 }}:{% widthratio track.duration 60 60 %} min</p>
-                {% comment %} <p>
-                    <a href="{{ track.audiodownload }}" target="_blank">Download</a> |
-                </p> {% endcomment %}
-
-      
-            </div>
-
-          </div>
-                 {% endfor %}
+          {% endfor %}
 
         {% else %}
           <p>No mood selected yet.</p>
@@ -74,8 +72,3 @@
     </div>
   </div>
 {% endblock %}
-
-
-<script>
-     
-</script>

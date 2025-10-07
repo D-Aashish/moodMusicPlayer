@@ -114,7 +114,6 @@ html, body {
 
 .menu-item:hover,
 .menu-item.active {
-  /* background-color: rgba(224, 223, 223, 0.24); */
   color: #fab8b8;
 }
 
@@ -126,12 +125,12 @@ html, body {
 }
 
 .main {
-  background-color: rgba(184, 175, 186, 0.2);
+  background-color: rgba(210, 158, 178, 0.2);
   padding: 20px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 
@@ -211,7 +210,6 @@ html, body {
 
 
 .artists {
-  background-color: rgba(75, 192, 192, 0.3);
   display: flex;
   flex-direction: column;
   /* grid-template-row: repeat(auto-fill, minmax(140px, 1fr)); */
@@ -239,7 +237,6 @@ artist-scroll-container::-webkit-scrollbar {
    flex: 0 0 auto;
      width: 150px;
   height: 160px; 
-  background: #f9f9f9;
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
