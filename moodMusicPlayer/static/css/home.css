@@ -126,7 +126,7 @@ html, body {
 
 .main {
   background-color: rgba(210, 158, 178, 0.2);
-  padding: 5px;
+  padding: 0 0 0 20px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -135,11 +135,12 @@ html, body {
 
 
 .topbar {
-  height: 50px; 
+  height: 40px; 
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
+  /* margin-top: 10px; */
   gap: 10px;
 }
 
@@ -210,8 +211,6 @@ html, body {
 .artists {
   display: flex;
   flex-direction: column;
-  /* grid-template-row: repeat(auto-fill, minmax(140px, 1fr)); */
-  /* gap: 10px; */
   padding: 0 0 0 10px;
   border-radius: 8px;
 }
@@ -224,21 +223,19 @@ html, body {
   overflow-x: auto;
   padding-bottom: 1rem; 
   -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none; 
+  scrollbar-width: none; 
 }
 
 artist-scroll-container::-webkit-scrollbar {
     display: none;
 }
 .artist-card {
-  /* flex: 0 0 150px; */
-   flex: 0 0 auto;
-     width: 150px;
+  flex: 0 0 auto;
+  width: 140px;
   height: 160px; 
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
-
   transition: transform 0.2s ease;
 }
 
@@ -255,39 +252,34 @@ artist-scroll-container::-webkit-scrollbar {
 }
 
 
-.musciPlayed {
-  background-color: rgba(153, 102, 255, 0.3); 
-  padding: 20px;
-  border-radius: 8px;
+.musicPlayed {
+  padding: 0 0 0 10px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-height: 400px;
-}
-
-.musciPlayed h3 {
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.music-section {
-  background-color: blue;
-  display: flex;
   gap: 10px;
+  max-height: 350px;  
+}
+.music-section {
+  display: flex;
+  /* padding-left: 10px; */
+  gap: 20px;
   align-items: flex-start; 
+  display: flex;
+  height: 100%;
 }
 .nowPlaying{
   width: 100%;
-  height: auto;
+  height: 300px;
   flex: 1;
-  background-color: #e60c0c;
-  /* padding: 10px; */
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
 }
 .playingMusicImage{
-  background-color: #38c90b;
+  /* background-color: #38c90b; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,13 +294,13 @@ artist-scroll-container::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #ea10db;
+  /* background-color: #ea10db; */
 }
 
 .song-controls{
   width: 100%;
   height: 50px;
-  background-color: darkcyan;
+  /* background-color: darkcyan; */
   display: flex;
   gap: 30px;
   justify-content: center;
@@ -324,49 +316,37 @@ artist-scroll-container::-webkit-scrollbar {
   font-size: 24px;
   cursor: pointer;
   border-radius: 8px; /* optional rounded corners */
-  background-color: #eee; /* optional bg color */
+  /* background-color: #eee; */
   border: none;     /* remove default border if any */
 }
-
-
-/* .play-btn{
-  width: 200px;
-  height: 100px;
-  background-color: wheat;
-} */
-
 .mostly-played {
   flex: 1;
-  background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-}
-.music-section {
-  display: flex;
-  height: 100%;
 }
 .mostly-played {
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  /* padding: 10px; */
+  border-radius: 20px;
+  /* box-shadow: 0 2px 8px rgba(0,0,0,0.1); */
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  height: 90%;
+  /* flex-grow: 1; */
+  /* height: 90%; */
+  /* overflow-y: auto; */
+  /* max-height: 100%; */
+  background-color: #ffffff;
 }
 
-.mostly-played {
-  overflow-y: auto;
-  max-height: 100%;
-}
 .mostly-played h3 {
   margin-bottom: 15px;
 }
 
+.mainTitle{
+  padding: 0 0 0 12px;
+  display: flex;
+  gap: 42%;
+  align-items: center;
+  justify-content: left;
+}
 .song-row {
   display: grid;
   grid-template-columns: 30px 50px 1fr 40px;
@@ -375,20 +355,14 @@ artist-scroll-container::-webkit-scrollbar {
   background: #fff;
   padding: 10px 15px;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  /* box-shadow: 0 1px 4px rgba(0,0,0,0.1); */
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  /* transition: background-color 0.2s ease; */
 }
 
-.song-row:hover {
+/* .song-row:hover {
   background-color: #f0e6ff;
-}
-
-.track-num {
-  font-weight: 600;
-  color: #555;
-  text-align: center;
-}
+} */
 
 .song-thumb {
   width: 50px;
