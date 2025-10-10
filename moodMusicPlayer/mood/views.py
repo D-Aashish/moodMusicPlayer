@@ -8,6 +8,7 @@ from api.views import getsongView as getsongs
 from api.songs import getTopArtist, mostPlayedSongs
 from api.songs import fetch_songs_from_jamendo as search_songs
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 
 @login_required
 def index(request):
@@ -38,17 +39,31 @@ def index(request):
 
 
 def home(request):
-    Artists = getTopArtist()
-    MostPlayedSongs = mostPlayedSongs()
-    played_track = TrackPlayed.objects.order_by('-played_at').first()
-    print("This is playing right now ",played_track)
+    Artists = cache.get('artists')
+    MostPlayedSongs = cache.get('most_played_songs')
+
+    if not Artists:
+        Artists = getTopArtist()
+        cache.set('artists', Artists, timeout=900)
+    
+    if not MostPlayedSongs:
+        MostPlayedSongs = mostPlayedSongs()
+        cache.set('most_played_songs', MostPlayedSongs, timeout=2000)
+
+    now_playing = request.session.get('now_playing')
+
+    if now_playing:
+        played_track = now_playing
+    else:
+        played_track = TrackPlayed.objects.order_by('-played_at').first()
+
     return render(request, "home.html",{ 'Artists':Artists, 'MostlyPlayed':MostPlayedSongs, 'PlayedTrack': played_track })
 
 def test2(request):
     return render(request, "mood_result.html")
 
 
-@csrf_exempt  # only if you can't set CSRF token properly — better to handle CSRF properly!
+@csrf_exempt
 def track_played(request):
     if request.method == 'POST':
         try:
@@ -58,7 +73,6 @@ def track_played(request):
             audio_url = data.get('audio_url')
             duration = data.get('duration') or 0.0 
 
-            # You can save to your DB here. For now just print/log
             print(f"Track Played: ID={track_id}, Image={image_url}, Audio={audio_url}, Duration={duration}")
             played_track = TrackPlayed.objects.create(
                 track_id=track_id,
@@ -66,6 +80,13 @@ def track_played(request):
                 audio_url=audio_url,
                 duration=duration
             )
+
+            request.session['now_playing'] = {
+                'track_id': track_id,
+                'image_url': image_url,
+                'audio_url': audio_url,
+                'duration': duration,
+            }
 
             return JsonResponse({'status': 'success'})
         except Exception as e:
@@ -80,17 +101,31 @@ def search(request):
         print("mood inside if :", mood)
         return render(request, 'mood_result.html', {'error': 'No mood provided.'})
     print("stating mood song selection")
-    try:
-        print("stating mood song selection inside try")
-        music_info = search_songs(mood)
-        print("search songs complete")
-        context = {'musicInfo': music_info}
-        # print("stating mood song selection")
-        print("songs obatinaed from search_songs: ", context)
-        return render(request, 'mood_result.html', context)
-        # return render(request, 'mood_result.html',{'Songs':songs})
-    except Exception:
-        print("stating mood  inside except")
-        songs = []
-        return render(request, 'mood_result.html', {'error': 'no songs found.'})
+    cache_key = f'mood-_{mood.lower()}'
+    music_info = cache.get(cache_key)
     
+    if music_info:
+        print(f"Using cached results for mood: {mood}")
+        cache.get()
+    else:
+        print(f"Fetching new results for mood: {mood}")
+        try:
+            print("stating mood song selection inside try")
+            music_info = search_songs(mood)
+            print("search songs complete")
+            # request.session['search_results'] = music_info
+            # cache.set(cache_key, music_info, timeout=300)/
+            cache.set(cache_key, music_info, timeout=600)
+            print("Search songs complete and cached.")
+
+            context = {'musicInfo': music_info}
+            # print("songs obatinaed from search_songs: ", context)
+            # return render(request, 'mood_result.html', context)
+        except Exception:
+            print("stating mood  inside except")
+            songs = []
+            return render(request, 'mood_result.html', {'error': 'no songs found.'})
+
+    context = {'musicInfo': music_info}
+    print("Returning context:", context)
+    return render(request, 'mood_result.html', context)    
