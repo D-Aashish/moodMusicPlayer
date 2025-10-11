@@ -115,7 +115,7 @@ def search(request):
             print("search songs complete")
             # request.session['search_results'] = music_info
             # cache.set(cache_key, music_info, timeout=300)/
-            cache.set(cache_key, music_info, timeout=600)
+            cache.set(cache_key, music_info, timeout=900)
             print("Search songs complete and cached.")
 
             context = {'musicInfo': music_info}

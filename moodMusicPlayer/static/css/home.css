@@ -1,9 +1,19 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  /* src: url('../fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('woff2'), */
+    src:   url('../fonts/Outfit/Outfit-VariableFont_wght.ttf') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Bebas Neue', sans-serif;
   overflow: hidden;
 }
+
 .dashboard-container {
   display: grid;
   grid-template-columns: 250px 1fr;
@@ -55,7 +65,7 @@ html, body {
 }
 
 .sidebar-my-music h2,.sidebar-playlists h2{
-  color: #c0bfbf;
+  color: #4f4f4f;
 }
 .btn1,.btn2,.btn3{
   height:10px;
@@ -136,19 +146,25 @@ html, body {
 
 .topbar {
   height: 40px; 
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 15px 20px;
   /* margin-top: 10px; */
   gap: 10px;
 }
 
+.decorative-svg{
+  position: absolute;
+  /* top: 20px; */
+}
 .divider {
   width: 1px;
   height: 30px;
   background-color: #ddd;
 }
+
 
 .topbar-left {
   display: flex;
@@ -211,7 +227,7 @@ html, body {
 .artists {
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 10px;
+  padding: 0 0 0 8px;
   border-radius: 8px;
 }
 
@@ -221,7 +237,7 @@ html, body {
   scroll-behavior: smooth;
   gap: 1rem;
   overflow-x: auto;
-  padding-bottom: 1rem; 
+  /* padding-bottom: 1rem;  */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none; 
 }
@@ -232,7 +248,7 @@ artist-scroll-container::-webkit-scrollbar {
 .artist-card {
   flex: 0 0 auto;
   width: 140px;
-  height: 160px; 
+  height: 175px; 
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
@@ -262,24 +278,24 @@ artist-scroll-container::-webkit-scrollbar {
 }
 .music-section {
   display: flex;
-  /* padding-left: 10px; */
-  gap: 20px;
+  gap: 30px;
   align-items: flex-start; 
-  display: flex;
-  height: 100%;
+  overflow: hidden;
+  /* height: 100%; */
+  /* scrollbar: none; */
 }
 .nowPlaying{
+  flex: 0 0 40%;
   width: 100%;
   height: 300px;
-  flex: 1;
   background-color: #ffffff;
   padding: 10px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 .playingMusicImage{
-  /* background-color: #38c90b; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -289,18 +305,15 @@ artist-scroll-container::-webkit-scrollbar {
   height: auto; 
   border-radius: 50px;
 }
-
 .playingMusicControls{
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: #ea10db; */
 }
 
 .song-controls{
   width: 100%;
   height: 50px;
-  /* background-color: darkcyan; */
   display: flex;
   gap: 30px;
   justify-content: center;
@@ -316,28 +329,18 @@ artist-scroll-container::-webkit-scrollbar {
   font-size: 24px;
   cursor: pointer;
   border-radius: 8px; /* optional rounded corners */
-  /* background-color: #eee; */
   border: none;     /* remove default border if any */
 }
+
 .mostly-played {
   flex: 1;
-  padding: 20px;
-}
-.mostly-played {
-  /* padding: 10px; */
-  border-radius: 20px;
-  /* box-shadow: 0 2px 8px rgba(0,0,0,0.1); */
+  gap: 20px;
+  /* height: 2rem; */
+  height: 300px;          /* same height as nowPlaying */
+  overflow-y: auto; 
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  /* flex-grow: 1; */
-  /* height: 90%; */
-  /* overflow-y: auto; */
-  /* max-height: 100%; */
-  background-color: #ffffff;
-}
-
-.mostly-played h3 {
-  margin-bottom: 15px;
 }
 
 .mainTitle{
@@ -349,20 +352,19 @@ artist-scroll-container::-webkit-scrollbar {
 }
 .song-row {
   display: grid;
+  height: 5rem;
   grid-template-columns: 30px 50px 1fr 40px;
   align-items: center;
   gap: 15px;
-  background: #fff;
-  padding: 10px 15px;
+  margin-bottom: 0 20px;
+  background-color: rgb(255, 255, 255);
   border-radius: 8px;
-  /* box-shadow: 0 1px 4px rgba(0,0,0,0.1); */
+  padding: 10px;
   cursor: pointer;
-  /* transition: background-color 0.2s ease; */
 }
-
-/* .song-row:hover {
-  background-color: #f0e6ff;
-} */
+.song-row:last-child {
+  border-bottom: none;
+}
 
 .song-thumb {
   width: 50px;
