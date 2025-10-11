@@ -200,16 +200,6 @@ html, body {
   cursor: pointer;
 }
 
-/* .search-input {
-  flex: 1;
-  padding: 8px 12px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.2s ease;
-} */
-
 .search-input:focus {
   background-color: #dcdbdf;
 }
@@ -296,12 +286,13 @@ artist-scroll-container::-webkit-scrollbar {
   overflow: visible;
 }
 .playingMusicImage{
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .playingMusicImage img {
-  width: 150px; 
+  width: 110px; 
   height: auto; 
   border-radius: 50px;
 }
@@ -311,6 +302,10 @@ artist-scroll-container::-webkit-scrollbar {
   align-items: center;
 }
 
+.audioDuration{
+  display: flex;
+  gap: 50px;
+}
 .song-controls{
   width: 100%;
   height: 50px;
@@ -332,6 +327,10 @@ artist-scroll-container::-webkit-scrollbar {
   border: none;     /* remove default border if any */
 }
 
+#controlMusic{
+  background:  linear-gradient(to bottom, rgb(202, 139, 227), rgb(101, 196, 191));
+  border-radius: 25px;
+}
 .mostly-played {
   flex: 1;
   gap: 20px;
