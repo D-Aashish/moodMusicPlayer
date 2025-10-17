@@ -61,13 +61,13 @@
 
     
     <div class="main">
+        <img src="{% static 'svg/svg-path.svg' %}" alt="decorative line" class="decorative-svg" />
         <div class="topbar">
             <div class="navButtonOut">
                 <div class="btn1"></div>
                 <div class="btn2"></div>
                 <div class="btn3"></div>
             </div>
-            <img src="{% static 'svg/svg-path.svg' %}" alt="decorative line" class="decorative-svg" />
             <div class="topbar-left">
                 <div class="menu-icon">⋮⋮</div>
                 <input type="text" placeholder="Search" size="30" class="search-input" id="searchInput" />
@@ -146,15 +146,20 @@
                             </div>
                     </div>
                         <div class="playingMusicControls">
-                            <button class="control-btn">✖</button>
-                            <button class="control-btn">⏮</button>
-                            <button class="play-btn"><i class="fa-regular fa-circle-pause" style="color: #000000;"></i></button>
-                            <button class="play-btn"><i class="fa-regular fa-circle-play" style="color: #0a0a0a;"></i></button>
-                            <button class="control-btn">⏭</button> 
-                            button class="control-btn">⛶</button>
+                             <audio src="{{PlayedTrack.audio_url}}" id="playingSong" type=audio ></audio>
+                        <input type="range" value="0" min="0"  id="songProgress">
+                        <div class="audioDuration">
+                            <span class="musicDuration">00:00</span>
+                            <span class="musicmax">00:00</span>
+                        </div>
+                        <div class="song-controls">
+                            <div> <i class="fa-solid fa-shuffle fa-lg" style="color: #000000;"></i></div>
+                            <div> <i class="fa-solid fa-backward fa-lg" style="color: #000000;"></i></div>
+                            <div> <i class="fa-solid fa-play fa-lg play-btn" id="controlMusic" style="color: #0d0d0d;"></i></div>
+                            <div> <i class="fa-solid fa-forward fa-lg" style="color: #000000;"></i></div>
+                            <div> <i class="fa-solid fa-shuffle fa-lg" style="color: #000000;"></i></div>
 
-                            <div class="duration">4:31</div>
-                            <div class="track-num">01</div>
+                        </div>
                         </div> 
                 {% endif %}
                 </div>

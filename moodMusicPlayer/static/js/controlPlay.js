@@ -40,8 +40,8 @@ function playPause(){
         progress.max = song.duration;
         document.querySelector(".musicDuration").textContent = `${formatTime(progress.value)}`
         document.querySelector(".musicMax").textContent = `${formatTime(progress.max)}`
-        console.log('min:', progress.value, 'seconds');
-    console.log('Duration:', song.duration, 'seconds');
+    //     console.log('min:', progress.value, 'seconds');
+    // console.log('Duration:', song.duration, 'seconds');
     });
 
 if (song.play()){
@@ -50,10 +50,10 @@ if (song.play()){
     progress.max = song.duration;
     document.querySelector(".musicDuration").textContent = `${formatTime(progress.value)}`
     document.querySelector(".musicMax").textContent = `${formatTime(progress.max)}`
-        console.log('min:', progress.value, 'seconds');
-    console.log("Changing")
-    console.log('min:', progress.value, 'seconds');
-    console.log('Duration:', song.duration, 'seconds');
+    //     console.log('min:', progress.value, 'seconds');
+    // console.log("Changing")
+    // console.log('min:', progress.value, 'seconds');
+    // console.log('Duration:', song.duration, 'seconds');
   });
 }
 });

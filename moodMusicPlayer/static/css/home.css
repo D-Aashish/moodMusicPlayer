@@ -157,6 +157,7 @@ html, body {
 
 .decorative-svg{
   position: absolute;
+  /* z-index: 0; */
   /* top: 20px; */
 }
 .divider {
