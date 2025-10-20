@@ -24,6 +24,7 @@ urlpatterns = [
 
     path('', include(("mood.urls","mood"), namespace='home')),
     path('api/', include('api.urls')),
-    path('accounts/', include('authUser.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('logins/', include('authUser.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

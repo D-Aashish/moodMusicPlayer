@@ -76,7 +76,7 @@ def getTopArtist():
         params = {
             'client_id': client_id,
             'format': 'jsonpretty',
-            'limit': 20,
+            'limit': 25,
             "order": "popularity_total",
         }
 
@@ -100,7 +100,7 @@ def mostPlayedSongs():
         params = {
                 'client_id': client_id,
                 'format': 'jsonpretty',
-                'limit': 5,
+                'limit': 10,
                 'order': 'listens_total',
                 # 'include': 'musicinfo',
                 'groupby': 'artist_id'

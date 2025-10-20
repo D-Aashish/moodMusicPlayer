@@ -1,17 +1,24 @@
 {% extends "base.html" %}
-
-{% block title %}
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+{% comment %} {% block title %}
 Signup
-{% endblock %}
+{% endblock %} {% endcomment %}
 
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
+            {% load socialaccount %}
+
             <form value="signup" method="POST" class="min-vh-100 g-3">
                 {% csrf_token %}
-                {{ form }}
-                {% comment %} <div class="col-md-6">
+                {% comment %} {{ form }} {% endcomment %}
+                <div class="col-md-6">
                     <label for="inputUsername" class="form-label">Username</label>
                     <input type="username" class="form-control" name="inputUsername" placeholder="Enter your username" required />
                 </div>
@@ -23,9 +30,12 @@ Signup
                     <label for="inputPassword" class="form-label">Password</label>
                     <input type="password" class="form-control" name="inputPassword" placeholder="Enter your passwword" required />
                 </div>
-                <div class="col-12 mt-4"> {% endcomment %}
+                <div class="col-12 mt-4">
                     <button type="submit" class="btn btn-primary me-3">Signin</button>
-                    {% comment %} <button type="submit" class="btn btn-danger me-3">Signup in with Google</button> {% endcomment %}
+                                     <a href="{% provider_login_url 'google' %}?next=/">
+                        <i class="fab fa-google"></i>
+                        Login with google</a> 
+
                 </div>
             </form>
         </div>

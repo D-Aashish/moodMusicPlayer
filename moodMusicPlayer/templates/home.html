@@ -9,6 +9,7 @@
     <script src="{% static 'js/fetchMusic.js' %}"></script>
     <script src="{% static 'js/controlPlay.js' %}"></script>
 </head>
+{% comment %} {% load socialaccount %} {% endcomment %}
 {% block content %}    
   <div class="dashboard-container">
     <div class="sidebar" id="sidebarToggle">
@@ -33,6 +34,11 @@
                 <a href="#" class="menu-item">
                     <i class="fa-regular fa-user" style="color: #c0bfbf;"></i>
                     Artists</a>
+                    {% comment %} {% Load socialaccount%} {% endcomment %}
+                    {% comment %} <a href="{% provider_login_url 'google' %}?next=/">
+                        <i class="fab fa-google"></i>
+                        Login with google</a>  {% endcomment %}
+                    
             </nav>
         </div>
 
@@ -74,8 +80,8 @@
             </div>
             <div class="divider"></div>
             
-            {% comment %} <img src="{% static 'svg/svg-path.svg' %}" alt="decorative line" class="decorative-svg" /> {% endcomment %}
             <div class="topbar-right">
+                <button class="notification-btn"><i class="fa-regular fa-user" style="color: #000000;"></i></button>
                 <button class="notification-btn"><i class="fa-regular fa-bell" style="color: #000000;"></i></button>
                 <button class="settings-btn"><i class="fa-solid fa-gear" style="color: #030303;"></i></button>
             </div>

@@ -113,14 +113,10 @@ def search(request):
             print("stating mood song selection inside try")
             music_info = search_songs(mood)
             print("search songs complete")
-            # request.session['search_results'] = music_info
-            # cache.set(cache_key, music_info, timeout=300)/
             cache.set(cache_key, music_info, timeout=900)
             print("Search songs complete and cached.")
 
             context = {'musicInfo': music_info}
-            # print("songs obatinaed from search_songs: ", context)
-            # return render(request, 'mood_result.html', context)
         except Exception:
             print("stating mood  inside except")
             songs = []
