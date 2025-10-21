@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
         const audioElements = document.querySelectorAll('audio');
+        console.log(audio);
         console.log('Found audio elements:', audioElements.length);
         audioElements.forEach((audio, index) => {
             audio.addEventListener('play', function () {
@@ -10,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const imageSrc = songSection.querySelector('img').src;
                 const audioSrc = audio.querySelector('source').src;
                 const duration = audio.duration;
+
+                const trackName = songSection.querySelector('h3')?.innerText || '';
+                const artistName = songSection.querySelector('p:nth-of-type(1)')?.innerText.replace('Artist: ', '') || '';
+                const albumName = songSection.querySelector('p:nth-of-type(2)')?.innerText.replace('Album: ', '') || '';
+                const releaseDate = songSection.querySelector('p:nth-of-type(3)')?.innerText.replace('Released: ', '') || '';
+
                 
                 fetch('/track-played/', {
                     method: 'POST',
@@ -19,6 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
                     body: JSON.stringify({
                             track_id: trackId,
+                            track_name: trackName,
+                            artist_name: artistName,
+                            album_name: albumName,
+                            releasedate: releaseDate,
                             image_url: imageSrc,
                             audio_url: audioSrc,
                             duration: duration

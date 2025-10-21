@@ -56,19 +56,50 @@ def home(request):
         played_track = now_playing
     else:
         played_track = TrackPlayed.objects.order_by('-played_at').first()
-
+        
     return render(request, "home.html",{ 'Artists':Artists, 'MostlyPlayed':MostPlayedSongs, 'PlayedTrack': played_track })
 
 def test2(request):
     return render(request, "mood_result.html")
 
+@login_required
+def bookmarked_song(request, song_id):
+    if request.method == 'POST':
+        song = get_object_or_404(BookMarkedSong, id=song_id)
+        UserBookmarkedSong.objects.get_or_create(user=request.user, song=song)
+    return redirect('bookmarked_songs')  
 
+@login_required
+def recently_played(request):
+    all_tracks = TrackPlayed.objects.filter(user=request.user).order_by('-played_at')
+    print("all tracks",all_tracks)
+    
+    for track in all_tracks:
+        print(track.track_id, track.image_url, track.audio_url, track.duration)
+    # seen = set()
+    # unique_tracks = []
+    # for track in all_tracks:
+    #     if track.track_id not in seen:
+    #         unique_tracks.append(track)
+    #         seen.add(track.track_id)
+    #     if len(unique_tracks) == 10:
+    #         break
+
+    context = {
+        'recent_tracks': all_tracks
+    }
+    return render(request, "recently_played.html", {"recentTracks":all_tracks})
+    
 @csrf_exempt
 def track_played(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             track_id = data.get('track_id')
+            track_name= trackName,
+            artist_name= artistName,
+            album_name= albumName,
+            releasedate= releaseDate,
             image_url = data.get('image_url')
             audio_url = data.get('audio_url')
             duration = data.get('duration') or 0.0 
@@ -76,6 +107,10 @@ def track_played(request):
             print(f"Track Played: ID={track_id}, Image={image_url}, Audio={audio_url}, Duration={duration}")
             played_track = TrackPlayed.objects.create(
                 track_id=track_id,
+                track_name= trackName,
+                artist_name= artistName,
+                album_name= albumName,
+                releasedate= releaseDate,
                 image_url=image_url,
                 audio_url=audio_url,
                 duration=duration

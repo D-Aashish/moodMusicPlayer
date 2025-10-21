@@ -49,7 +49,7 @@ def fetch_songs_from_jamendo(mood):
     params = {
             'client_id': client_id,
             'format': 'jsonpretty',
-            'limit': 2,
+            'limit': 10,
             'fuzzytags': tags,
             "order": "popularity_total",
             "include": "musicinfo",
@@ -76,7 +76,7 @@ def getTopArtist():
         params = {
             'client_id': client_id,
             'format': 'jsonpretty',
-            'limit': 25,
+            'limit': 30,
             "order": "popularity_total",
         }
 

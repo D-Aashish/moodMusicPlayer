@@ -41,13 +41,13 @@
       <div class="top-section">this is the top section </div>
 
       <div class="song-list-section">
-        {% if musicInfo %}
-          {% for track in musicInfo %}
+        {% if recentTracks %}
+          {% for track in recentTracks %}
             <div class="song-section">
               <div class="song-thumbnail">
-                <img src="{{ track.album_image }}" alt="{{ track.name }}" width="150">
-                <audio controls data-track-id="{{ track.id }}">
-                    <source src="{{ track.audio }}" type="audio/mpeg">
+                <img src="{{ track.image_url }}" alt="{{ track.name }}" width="150">
+                <audio controls data-track-id="{{ track.track_id }}">
+                    <source src="{{ track.audio_url }}" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
               </div>
@@ -63,7 +63,7 @@
                   <a href=""><i class="fa-solid fa-bookmark" style="color: #c0bfbf;"></i></a>
               </div>
             </div>
-          {% endfor %}
+          {% endfor %}``
 
         {% else %}
           <p>No mood selected yet.</p>

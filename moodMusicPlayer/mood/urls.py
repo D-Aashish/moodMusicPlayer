@@ -6,5 +6,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('result', views.test2, name='result'),
     path('search/', views.search, name='search'),
-    path('track-played/', views.track_played, name='track_played'),
+    path('recentlyPlayed/', views.recently_played, name='recentlyPlayed'),
+    path('bookmarked/', views.bookmarked_song , name='bookmarked_songs'),
+    path('trackPlayed/', views.track_played, name='track_played'),
 ]
