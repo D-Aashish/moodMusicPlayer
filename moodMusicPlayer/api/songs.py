@@ -9,7 +9,6 @@ client_id = os.environ.get("CLIENT_ID")
 # print("client id : ",client_id)
 
 def fetch_songs_from_jamendo(mood):
-    print("spotify_utils mood:", mood)
     url = f"https://api.jamendo.com/v3.0/tracks/"
     mood_genre_map = {
             'HA': ['pop', 'dance', 'upbeat'],
@@ -56,11 +55,11 @@ def fetch_songs_from_jamendo(mood):
             "groupby": "artist_id"
         }
     response = requests.get(url, params=params)
-    print("url" , response.url)
+#     print("url" , response.url)
 
     if response.status_code == 200:
         data = response.json()
-        print("Raw API data:", json.dumps(data, indent=2))
+        # print("Raw API data:", json.dumps(data, indent=2))
         results = data.get("results", [])
         if results:
                 # print("First track example:", json.dumps(results[0], indent=2))
@@ -69,7 +68,7 @@ def fetch_songs_from_jamendo(mood):
                 print("No tracks found based on the given parameters.")
     else:
         print(f"Failed to fetch tracks. Status code: {response.status_code}")
-        print("Raw Response:", response.text)
+        # print("Raw Response:", response.text)
 
 def getTopArtist():
         url = f"https://api.jamendo.com/v3.0/artists/"
@@ -93,7 +92,7 @@ def getTopArtist():
                         print("No artist found based on the given parameters.")
         else:
                 print(f"Failed to fetch tracks. Status code: {response.status_code}")
-                print("Raw Response:", response.text)
+                # print("Raw Response:", response.text)
 
 def mostPlayedSongs():
         url = f"https://api.jamendo.com/v3.0/tracks/"

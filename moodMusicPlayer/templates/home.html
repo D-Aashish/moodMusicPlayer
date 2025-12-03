@@ -20,7 +20,6 @@
                     <div class="btn2"></div>
                     <div class="btn3"></div>
                 </div>
-
                 <a href="#" class="menu-item"> 
                     <i class="fa-solid fa-house" style="color: #c0bfbf;"></i>
                     Home
@@ -201,11 +200,10 @@
         if (event.key === "Enter") {event.preventDefault();
             const mood = this.value.trim();
             if (!mood) {
-        alert("Please enter a mood to search");
-        return;
-      }
-            if (mood !== "") 
-            {
+                alert("Please enter a mood to search");
+                return;
+            }
+            if (mood !== ""){
             window.location.href = `/search/?mood=${encodeURIComponent(mood)}`;}}
     });
 

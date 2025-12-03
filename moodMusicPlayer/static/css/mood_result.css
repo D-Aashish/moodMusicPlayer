@@ -25,9 +25,9 @@ html, body {
     justify-content: space-between;
     flex-direction: column;
     padding: 10px 20px;
-    background-color: #838ad8;
+    /* background-color: #838ad8; */
     border-radius: 8px 8px 0 0;
-    box-shadow: 0 1px 0 0 #ddd;
+    /* box-shadow: 0 1px 0 0 #ddd; */
     gap: 15px;
 }
 .song-section{

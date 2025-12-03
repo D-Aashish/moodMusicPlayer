@@ -12,18 +12,16 @@ from django.core.cache import cache
 
 @login_required
 def index(request):
-    print("POST data:", request.POST)
-    if request.method == 'POST':
-        action = request.POST.get('action')
-        print("Action received:", action)
-        if action == 'logout':
+    action = request.POST.get('action')
+    # print("Action received:", action)
+    if action == 'logout':
             logout(request)
             return redirect('login') 
-        elif action == 'mood':
+    elif action == 'mood':
             form = MoodsForm(request.POST)
-            print("This is form :",form)
+            # print("This is form :",form)
             if form.is_valid():
-                print("form is valid")
+                # print("form is valid")
                 mood_instance = form.save()
                 request.session["selected_mood"] = mood_instance.type
                 songs = getsongs(request,mood_instance)  
@@ -41,22 +39,17 @@ def index(request):
 def home(request):
     Artists = cache.get('artists')
     MostPlayedSongs = cache.get('most_played_songs')
-
     if not Artists:
         Artists = getTopArtist()
         cache.set('artists', Artists, timeout=900)
-    
     if not MostPlayedSongs:
         MostPlayedSongs = mostPlayedSongs()
         cache.set('most_played_songs', MostPlayedSongs, timeout=2000)
-
     now_playing = request.session.get('now_playing')
-
     if now_playing:
         played_track = now_playing
     else:
         played_track = TrackPlayed.objects.order_by('-played_at').first()
-        
     return render(request, "home.html",{ 'Artists':Artists, 'MostlyPlayed':MostPlayedSongs, 'PlayedTrack': played_track })
 
 def test2(request):
@@ -72,19 +65,10 @@ def bookmarked_song(request, song_id):
 @login_required
 def recently_played(request):
     all_tracks = TrackPlayed.objects.filter(user=request.user).order_by('-played_at')
-    print("all tracks",all_tracks)
+    # print("all tracks",all_tracks)
     
     for track in all_tracks:
         print(track.track_id, track.image_url, track.audio_url, track.duration)
-    # seen = set()
-    # unique_tracks = []
-    # for track in all_tracks:
-    #     if track.track_id not in seen:
-    #         unique_tracks.append(track)
-    #         seen.add(track.track_id)
-    #     if len(unique_tracks) == 10:
-    #         break
-
     context = {
         'recent_tracks': all_tracks
     }
@@ -131,32 +115,34 @@ def track_played(request):
 
 def search(request):
     mood = request.GET.get('mood')
-    print("mood:", mood)
+    # print("mood:", mood)
     if not mood:
-        print("mood inside if :", mood)
+        # print("mood inside if :", mood)
         return render(request, 'mood_result.html', {'error': 'No mood provided.'})
-    print("stating mood song selection")
+    # print("stating mood song selection")
     cache_key = f'mood-_{mood.lower()}'
     music_info = cache.get(cache_key)
     
     if music_info:
-        print(f"Using cached results for mood: {mood}")
-        cache.get()
+        # print(f"Using cached results for mood: {mood}")
+        # cache.get(cache_key)
+        context = {'musicInfo': music_info}
+        return render(request, 'mood_result.html', context)
     else:
-        print(f"Fetching new results for mood: {mood}")
+        # print(f"Fetching new results for mood: {mood}")
         try:
-            print("stating mood song selection inside try")
+            # print("stating mood song selection inside try")
             music_info = search_songs(mood)
-            print("search songs complete")
+            # print("search songs complete")
             cache.set(cache_key, music_info, timeout=900)
-            print("Search songs complete and cached.")
+            # print("Search songs complete and cached.")
 
             context = {'musicInfo': music_info}
         except Exception:
-            print("stating mood  inside except")
+            # print("stating mood  inside except")
             songs = []
             return render(request, 'mood_result.html', {'error': 'no songs found.'})
 
     context = {'musicInfo': music_info}
-    print("Returning context:", context)
+    # print("Returning context:", context)
     return render(request, 'mood_result.html', context)    
