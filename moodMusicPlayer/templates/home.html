@@ -1,15 +1,18 @@
 {% load static %}
+{% comment %} {% load static tailwind_tags %} {% endcomment %}
+{% comment %} {% tailwind_css %} {% endcomment %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="{%static 'css/home.css' %}">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> {% endcomment %}
     <script src="{% static 'js/slider.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
     <script src="{% static 'js/fetchMusic.js' %}"></script>
     <script src="{% static 'js/controlPlay.js' %}"></script>
+    <script src="{% static 'js/navbarControl.js' %}"></script>
 </head>
-{% comment %} {% load socialaccount %} {% endcomment %}
 {% block content %}    
   <div class="dashboard-container">
     <div class="sidebar" id="sidebarToggle">
@@ -80,7 +83,26 @@
             <div class="topbar-right">
                 <button class="notification-btn"><i class="fa-regular fa-user" style="color: #000000;"></i></button>
                 <button class="notification-btn"><i class="fa-regular fa-bell" style="color: #000000;"></i></button>
-                <button class="settings-btn"><i class="fa-solid fa-gear" style="color: #030303;"></i></button>
+                <button class="settings-btn" onclick=toggleSettingDropdown()>
+                    <span>
+                        <i class="fa-solid fa-gear" style="color: #030303;"></i>
+                    </span>
+                 </button>
+                 <div id="settingsDropdown" class="hidden">
+                 {% if user.is_authenticated %}
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700">
+                        Log out
+                    </button>
+                </form>
+              {% else %}
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                  <a href="{%url 'login' %}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Login</a>
+              {% endif %}
+            </div>
             </div>
         </div>
 

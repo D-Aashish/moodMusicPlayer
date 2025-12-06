@@ -21,11 +21,6 @@ html, body {
   gap: 20px;
   background-color: rgb(241, 241, 241);
 }
-
-/* .dashboard-container.sidebar-hidden {
-  grid-template-columns: 0 1fr;
-} */
-
 .sidebar {
   padding: 20px;
   overflow-y: auto;
@@ -140,7 +135,6 @@ html, body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  /* gap: 10px; */
 }
 
 
@@ -157,15 +151,12 @@ html, body {
 
 .decorative-svg{
   position: absolute;
-  /* z-index: 0; */
-  /* top: 20px; */
 }
 .divider {
   width: 1px;
   height: 30px;
   background-color: #ddd;
 }
-
 
 .topbar-left {
   display: flex;
@@ -215,7 +206,13 @@ html, body {
   cursor: pointer;
 }
 
-
+#settingsDropdown{
+  visibility : hidden ;
+/* element.style.visibility = 'visible'; */
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
 .artists {
   display: flex;
   flex-direction: column;
