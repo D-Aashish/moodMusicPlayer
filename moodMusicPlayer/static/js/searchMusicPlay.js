@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
         const audioElements = document.querySelectorAll('audio');
-        console.log(audio);
-        console.log('Found audio elements:', audioElements.length);
+        // console.log(audio);
+        // console.log('Found audio elements:', audioElements.length);
         audioElements.forEach((audio, index) => {
             audio.addEventListener('play', function () {
-                console.log(`Track ${index + 1} played`);
+                // console.log(`Track ${index + 1} played`);
                 const trackId = audio.dataset.trackId;
-                console.log(`Track id ${trackId} `);
+                // console.log(`Track id ${trackId} `);
                 const songSection = audio.closest('.song-section');
                 const imageSrc = songSection.querySelector('img').src;
                 const audioSrc = audio.querySelector('source').src;
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const releaseDate = songSection.querySelector('p:nth-of-type(3)')?.innerText.replace('Released: ', '') || '';
 
                 
-                fetch('/track-played/', {
+                fetch('/trackPlayed/', {
                     method: 'POST',
                     headers: {
                             'Content-Type': 'application/json',
@@ -54,5 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return cookieValue;
         }
+
     })
 });

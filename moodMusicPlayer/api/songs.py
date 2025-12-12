@@ -80,7 +80,7 @@ def getTopArtist():
         }
 
         response = requests.get(url, params=params)
-        # print("url" , response.url)
+        # print("url" , response.url)   
         if response.status_code == 200:
                 data = response.json()
                 # print("Raw API data:", json.dumps(data, indent=2))

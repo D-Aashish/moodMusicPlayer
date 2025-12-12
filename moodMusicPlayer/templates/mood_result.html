@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{%static 'css/mood_result.css' %}">
     <script src="{% static 'js/searchMusicPlay.js' %}"></script>
     <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/controlPlay.js' %}"></script>
+     <script src="{% static 'js/controlPlay.js' %}"></script>
 </head>
 {% block content %}    
   <div class="dashboard-container">
@@ -61,7 +63,7 @@
     </div>
 
     <div class="main">
-      <div class="top-section">this is the top section </div>
+      <div class="top-section">mood resulttemplate</div>
 
       <div class="song-list-section">
         {% if musicInfo %}
@@ -75,16 +77,21 @@
                 </audio>
               </div>
 
-              <div class="songPlay"><h3>{{ track.name }}</h3>
+              <div class="songPlay">
+                <div class="musicInfo">
+                  <h3>{{ track.name }}</h3>
                   <p>Artist: {{ track.artist_name }}</p>
                   <p>Album: {{ track.album_name }}</p>
                   <p>Released: {{ track.releasedate }}</p>
                   <p>Duration: {{ track.duration|divisibleby:60 }}:{% widthratio track.duration 60 60 %} min</p>
+                  </div>
                   {% comment %} <p>
                       <a href="{{ track.audiodownload }}" target="_blank">Download</a> |
                   </p> {% endcomment %}
-                  <a href=""><i class="fa-solid fa-bookmark" style="color: #c0bfbf;"></i></a>
-              </div>
+                  <div class="musicBookmark">
+                   <Span><i class="fa-regular fa-bookmark fa-xl" id="bookmark"></i></Span>
+                  </div>
+                </div>
             </div>
           {% endfor %}
 

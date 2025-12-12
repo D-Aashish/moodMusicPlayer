@@ -38,7 +38,6 @@
                     Artists</a>   
             </nav>
         </div>
-
         <div class="sidebar-my-music">
             <h2 class="sidebar-section-title">My Music</h2>
             <nav class="sidebar-menu">
@@ -80,29 +79,28 @@
             </div>
             <div class="divider"></div>
             
-            <div class="topbar-right">
-                <button class="notification-btn"><i class="fa-regular fa-user" style="color: #000000;"></i></button>
+            <div class="topbar-right icon-wrapper">
+                <button class="userProfile-btn" onclick=toggleDropdown('userProfileDropdown')><i class="fa-regular fa-user" style="color: #000000;"></i></button>
+                <div id="userProfileDropdown" class="dropdownUserProfile">
+                    <div class="profileElement">
+                    {% if user.is_authenticated %}
+
+                        <a href="#" >View Profile</a>
+                        <a href="#" >Edit Profile</a>
+                        <form method="POST" action="{% url 'logout' %}">{% csrf_token %}
+                            <button type="submit">Log out</button></form>
+                            {% else %}<a href="{%url 'login' %}" >Login</a>{% endif %}
+                        </div>
+                </div>
                 <button class="notification-btn"><i class="fa-regular fa-bell" style="color: #000000;"></i></button>
-                <button class="settings-btn" onclick=toggleSettingDropdown()>
+                <button class="settings-btn" onclick=toggleDropdown('settingsDropdown')>
                     <span>
                         <i class="fa-solid fa-gear" style="color: #030303;"></i>
                     </span>
                  </button>
-                 <div id="settingsDropdown" class="hidden">
-                 {% if user.is_authenticated %}
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                <form method="POST" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700">
-                        Log out
-                    </button>
-                </form>
-              {% else %}
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                  <a href="{%url 'login' %}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Login</a>
-              {% endif %}
-            </div>
+                 <div id="settingsDropdown" class="dropdownSettings">
+                        <a href="#" >Settings</a>
+                 </div> 
             </div>
         </div>
 
@@ -136,14 +134,16 @@
         <div class="musicPlayed">
            <div class="music-section">
             <div class="nowPlaying">
-                {% comment %} <h3>Now Playing</h3> {% endcomment %}
                 {% if PlayedTrack %}
                     <div class="playingMusicImage">
+                             <Span>
+                                {% comment %} <i class="fa-solid fa-bookmark fa-xl id=bookmark"></i> {% endcomment %}
+                                <i class="fa-regular fa-bookmark fa-xl" id="bookmark"></i>
+                            </Span>
                         <img src="{{PlayedTrack.image_url}}" alt="playingMusicImage" class="playing-image">
                         <div class="class="song-info">
                             <h3>Saint-Tropez</h3>
-                            <p>{{playingMusicArtist}}</p>
-                            {{playingMusicArtist}}</div>
+                        </div>
                     </div>
                     <div class="playingMusicControls">
                         <audio src="{{PlayedTrack.audio_url}}" id="playingSong" type=audio ></audio>
@@ -156,7 +156,6 @@
                             <div> <i class="fa-solid fa-shuffle fa-lg" style="color: #000000;"></i></div>
                             <div> <i class="fa-solid fa-backward fa-lg" style="color: #000000;"></i></div>
                             <div> <i class="fa-solid fa-play fa-lg play-btn" id="controlMusic" style="color: #0d0d0d;"></i></div>
-                            {% comment %} <div> <i class="fa-solid fa-circle-play fa-lg play-btn" id="pauseMusic" style="color: #0a0a0a;"></i></div> {% endcomment %}
                             <div> <i class="fa-solid fa-forward fa-lg" style="color: #000000;"></i></div>
                             <div> <i class="fa-solid fa-shuffle fa-lg" style="color: #000000;"></i></div>
 
@@ -164,6 +163,7 @@
                     </div> 
                  {% else %}
                       <div class="playingMusicImage">
+                      <Span><i class="fa-regular fa-bookmark fa-xl" id="bookmark"></i></Span>
                         <img src="rockstar.jpg" alt="Rockstar" class="song-thumb" />
                             <div class="song-info">
                                 <h4>Rockstar</h4>

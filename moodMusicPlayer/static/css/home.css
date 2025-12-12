@@ -167,7 +167,7 @@ html, body {
 
 .topbar-right {
   display: flex;
-  padding: 0 30 0 0;
+  padding: 0 18 0 0;
   align-items: center;
   gap: 15px;
 }
@@ -198,21 +198,47 @@ html, body {
 }
 
 
-.notification-btn,
+.userProfile-btn,.notification-btn,
 .settings-btn {
   background: none;
   border: none;
   font-size: 20px;
+  margin: 0 8px;  
   cursor: pointer;
 }
 
 #settingsDropdown{
-  visibility : hidden ;
-/* element.style.visibility = 'visible'; */
-  display: flex;
+  /* visibility : hidden ; */
+  /* visibility : visible; */
+    display: none;
+    left: 4rem;
+    top: 2rem;
+    position: absolute;
+    align-items: center;
+    flex-direction: row;
+}
+
+#userProfileDropdown{
+  display: none;
+  left: -1rem;
+  top : 2rem;
+  position: absolute; 
   align-items: center;
   flex-direction: row;
 }
+.icon-wrapper {
+    position: relative;
+    display: inline-block;
+}
+  .dropdownUserProfile,.dropdownSettings{
+    flex-direction: column;
+    top: 5rem;
+    left:20px;
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
 .artists {
   display: flex;
   flex-direction: column;
@@ -226,8 +252,7 @@ html, body {
   scroll-behavior: smooth;
   gap: 1rem;
   overflow-x: auto;
-  /* padding-bottom: 1rem;  */
-  -ms-overflow-style: none;  /* IE and Edge */
+  -ms-overflow-style: none;
   scrollbar-width: none; 
 }
 
@@ -289,6 +314,11 @@ artist-scroll-container::-webkit-scrollbar {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.playingMusicImage span {
+  position: relative;
+  bottom: 1rem;
+  left: 14rem;
 }
 .playingMusicImage img {
   width: 110px; 
