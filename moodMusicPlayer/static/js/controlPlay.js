@@ -50,18 +50,19 @@ if (song.play()){
 bookmark.addEventListener('click', bookMarkSong);
 function bookMarkSong(){
   const trackId = "{{ PlayedTrack.id }}";
-    const trackName = document.getElementById('trackName').innerText;
-    const artistName = document.getElementById('artistName').innerText;
-    const imageSrc = document.getElementById('trackImage').src;
-    const audioSrc = document.getElementById('playingSong').src;
+    // const trackName = document.getElementById('trackName').innerText;
+    // const artistName = document.getElementById('artistName').innerText;
+    // const imageSrc = document.getElementById('trackImage').src;
+    // const audioSrc = document.getElementById('playingSong').src;
 
     const data = {
         track_id: trackId,
-        track_name: trackName,
-        artist_name: artistName,
-        image_url: imageSrc,
-        audio_url: audioSrc
+        // track_name: trackName,
+        // artist_name: artistName,
+        // image_url: imageSrc,
+        // audio_url: audioSrc
     };
+    console.log("data from control play js bookmark")
   if(bookmark.classList.contains("fa-regular")){
     bookmark.classList.replace("fa-regular", "fa-solid");
     fetch('/bookmarked', {

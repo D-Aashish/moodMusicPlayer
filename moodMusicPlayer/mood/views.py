@@ -44,7 +44,7 @@ def home(request):
         MostPlayedSongs = mostPlayedSongs()
         cache.set('most_played_songs', MostPlayedSongs, timeout=2000)
     now_playing = request.session.get('now_playing')
-    # print("now playing:", now_playing)
+    print("now playing:", now_playing)
     if now_playing:
         played_track = now_playing
         # print("played_track",played_track)
@@ -57,40 +57,39 @@ def home(request):
 # def test2(request):
 #     return render(request, "mood_result.html")
 
-@login_required
+# @login_required
 def bookmarked_song(request, song_id):
     if request.method == 'POST':
-        # if not request.user.is_authenticated:
-        #     return JsonResponse({'error': 'User not authenticated'}, status=401)
         user=request.user
         data = json.loads(request.body)
         # track_id = data.get('track_id')
         # track_name = data.get('track_name')
         # artist_name = data.get('artist_name')
         # album_name = data.get('album_name')
-        # releasedate = data.get('releasedate')
+        # releasedate_str = data.get('releasedate')
+        # releasedate = parse_datetime(releasedate_str) if releasedate_str else None
         # image_url = data.get('image_url')
         # audio_url = data.get('audio_url')
         # duration = data.get('duration')
         # song = get_object_or_404(BookMarkedSong, id=song_id)
-        # BookmarkedSong.objects.create(user=request.user, song=song)
 
         bookmark, created = BookmarkedSong.objects.get_or_create(
             user=request.user,
             track_id=track_id,
-            defaults={
-                'track_name': track_name,
-                'artist_name': artist_name,
-                'album_name': album_name,
-                'releasedate': releasedate,
-                'image_url': image_url,
-                'audio_url': audio_url
-            }
+            # defaults={
+            #     'track_name': track_name,
+            #     'artist_name': artist_name,
+            #     'album_name': album_name,
+            #     'releasedate': releasedate,
+            #     'image_url': image_url,
+            #     'audio_url': audio_url,
+            #     'duration': duration
+            # }
         )
-    return JsonResponse("bookmarked ")
+    return JsonResponse({"status": "bookmarked"})
 
 # history of played songs
-@login_required
+# @login_required
 def recently_played(request):
     all_tracks = TrackPlayed.objects.filter(user=request.user).order_by('-played_at')
     # print("all tracks",all_tracks)
@@ -102,8 +101,8 @@ def recently_played(request):
     }
     return render(request, "recently_played.html", {"recentTracks":all_tracks})
     
+# @login_required
 @csrf_exempt
-@login_required
 def track_played(request):
     if request.method == 'POST':
         try:
@@ -119,23 +118,27 @@ def track_played(request):
             audio_url = data.get('audio_url')
             duration = data.get('duration') or 0.0 
 
+            # print("track id ",  track_id)
             # print("TRACK RECEIVED:", data)
             # print(f"Track Played: ID={track_id}, Image={image_url}, Audio={audio_url}, Duration={duration}")
 
             # if request.user.is_authenticated:
-            played_track = TrackPlayed.objects.create(
-                    user = request.user,
-                    track_id=track_id,
-                track_name=track_name,
-                artist_name=artist_name,
-                album_name=album_name,
-                releasedate=releasedate,
-                    image_url=image_url,
-                    audio_url=audio_url,
-                    duration=duration
-                )
-
-            request.session['now_playing'] = {
+            try:
+                played_track = TrackPlayed.objects.create(
+                        user = request.user,
+                        track_id=track_id,
+                    track_name=track_name,
+                    artist_name=artist_name,
+                    album_name=album_name,
+                    releasedate=releasedate,
+                        image_url=image_url,
+                        audio_url=audio_url,
+                        duration=duration
+                    )
+            except Exception as e:
+                print("Error creating TrackPlayed:", e)
+                raise
+            request.session['now_playing_data'] = {
                 'track_id': track_id,
                  'track_name': track_name,
                 'artist_name': artist_name,
@@ -145,7 +148,14 @@ def track_played(request):
                 'audio_url': audio_url,
                 'duration': duration,
             }
+            request.session['now_playing_id'] = played_track.id
+            # print("hellow")
+            # print("this is session ",request.session['now_playing'] )
+            # print("hellow")
+            # request.session['now_playing_id'] = {}
             request.session.save()
+
+            # request.session.save()
             return JsonResponse({'status': 'success'})
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)}, status=400)

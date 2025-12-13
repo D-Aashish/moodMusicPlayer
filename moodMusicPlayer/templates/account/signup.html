@@ -6,19 +6,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 {% comment %} {% block title %}
-Signup
+
 {% endblock %} {% endcomment %}
 
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
+        This is the signup
         <div class="col-md-6">
             {% load socialaccount %}
 
             <form value="signup" method="POST" class="min-vh-100 g-3">
                 {% csrf_token %}
+                {{ form.as_p }}
                 {% comment %} {{ form }} {% endcomment %}
-                <div class="col-md-6">
+                {% comment %} <div class="col-md-6">
                     <label for="inputUsername" class="form-label">Username</label>
                     <input type="username" class="form-control" name="inputUsername" placeholder="Enter your username" required />
                 </div>
@@ -29,10 +31,10 @@ Signup
                 <div class="col-md-6">
                     <label for="inputPassword" class="form-label">Password</label>
                     <input type="password" class="form-control" name="inputPassword" placeholder="Enter your passwword" required />
-                </div>
+                </div> {% endcomment %}
                 <div class="col-12 mt-4">
                     <button type="submit" class="btn btn-primary me-3">Signin</button>
-                                     <a href="{% provider_login_url 'google' %}?next=/">
+                                     {% comment %} <a href="{% provider_login_url 'google' %}?next=/"> {% endcomment %}
                         <i class="fab fa-google"></i>
                         Login with google</a> 
 
