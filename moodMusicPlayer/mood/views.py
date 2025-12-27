@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
-from .models import Moods, TrackPlayed
+from .models import Moods, TrackPlayed, BookMarkedSong
 from .forms import MoodsForm
 from api.views import getsongView as getsongs
 from api.songs import getTopArtist, mostPlayedSongs
@@ -43,48 +43,31 @@ def home(request):
     if not MostPlayedSongs:
         MostPlayedSongs = mostPlayedSongs()
         cache.set('most_played_songs', MostPlayedSongs, timeout=2000)
-    now_playing = request.session.get('now_playing')
-    print("now playing:", now_playing)
+    now_playing = request.session.get('now_playing_data')
+    print("now playing from home view:", now_playing)
     if now_playing:
         played_track = now_playing
-        # print("played_track",played_track)
+        print("played_track from home view if",played_track)
 
     else:
         played_track = TrackPlayed.objects.order_by('-played_at').first()
-        # print("played_track",played_track)
+        print("played_track from view else",played_track)
     return render(request, "home.html",{ 'Artists':Artists, 'MostlyPlayed':MostPlayedSongs, 'PlayedTrack': played_track })
 
 # def test2(request):
 #     return render(request, "mood_result.html")
 
 # @login_required
-def bookmarked_song(request, song_id):
+def bookmarked_song(request):
     if request.method == 'POST':
         user=request.user
         data = json.loads(request.body)
+        print("data from bookmarked in view:", data)
         # track_id = data.get('track_id')
-        # track_name = data.get('track_name')
-        # artist_name = data.get('artist_name')
-        # album_name = data.get('album_name')
-        # releasedate_str = data.get('releasedate')
-        # releasedate = parse_datetime(releasedate_str) if releasedate_str else None
-        # image_url = data.get('image_url')
-        # audio_url = data.get('audio_url')
-        # duration = data.get('duration')
-        # song = get_object_or_404(BookMarkedSong, id=song_id)
 
-        bookmark, created = BookmarkedSong.objects.get_or_create(
+        bookmark, created = BookMarkedSong.objects.get_or_create(
             user=request.user,
             track_id=track_id,
-            # defaults={
-            #     'track_name': track_name,
-            #     'artist_name': artist_name,
-            #     'album_name': album_name,
-            #     'releasedate': releasedate,
-            #     'image_url': image_url,
-            #     'audio_url': audio_url,
-            #     'duration': duration
-            # }
         )
     return JsonResponse({"status": "bookmarked"})
 
@@ -95,16 +78,18 @@ def recently_played(request):
     # print("all tracks",all_tracks)
     
     for track in all_tracks:
+        print("all tracks from recently_played view ")
         print(track.track_id, track.image_url, track.audio_url, track.duration)
     context = {
         'recent_tracks': all_tracks
     }
     return render(request, "recently_played.html", {"recentTracks":all_tracks})
     
-# @login_required
+@login_required
 @csrf_exempt
 def track_played(request):
     if request.method == 'POST':
+        print("track played running (inside track_played)")
         try:
             data = json.loads(request.body)
 
@@ -119,7 +104,7 @@ def track_played(request):
             duration = data.get('duration') or 0.0 
 
             # print("track id ",  track_id)
-            # print("TRACK RECEIVED:", data)
+            print("TRACK RECEIVED track_played view:", data)
             # print(f"Track Played: ID={track_id}, Image={image_url}, Audio={audio_url}, Duration={duration}")
 
             # if request.user.is_authenticated:
@@ -135,6 +120,7 @@ def track_played(request):
                         audio_url=audio_url,
                         duration=duration
                     )
+                print("track played from track_played view", played_track)
             except Exception as e:
                 print("Error creating TrackPlayed:", e)
                 raise
@@ -148,11 +134,7 @@ def track_played(request):
                 'audio_url': audio_url,
                 'duration': duration,
             }
-            request.session['now_playing_id'] = played_track.id
-            # print("hellow")
-            # print("this is session ",request.session['now_playing'] )
-            # print("hellow")
-            # request.session['now_playing_id'] = {}
+            # request.session['now_playing_id'] = played_track.id
             request.session.save()
 
             # request.session.save()
@@ -167,7 +149,6 @@ def search(request):
     if not mood:
         return render(request, 'mood_result.html', {'error': 'No mood provided.'})
     cache_key = f'mood-_{mood.lower()}'
-    # print("cache key:",cache_key)
     music_info = cache.get(cache_key)
     
     if music_info:

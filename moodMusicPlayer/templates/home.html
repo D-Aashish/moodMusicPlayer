@@ -13,6 +13,7 @@
     <script src="{% static 'js/fetchMusic.js' %}"></script>
     <script src="{% static 'js/controlPlay.js' %}"></script>
     <script src="{% static 'js/navbarControl.js' %}"></script>
+    <script src="{% static 'js/searchMusicPlay.js' %}"></script>
 </head>
 {% block content %}    
   <div class="dashboard-container">
@@ -111,7 +112,7 @@
                 {% if Artists %}
                     {% for results in Artists %}
                     {% if results.image %}
-                            <div class="artist-card">
+                            <div class="artist-card" onclick=openCardMusic(results)>
                                 <img src="{{results.image}}" alt="{{results.name}}" />
                                 <p>{{results.name}}</p>
                             </div>
@@ -139,7 +140,8 @@
                     <div class="playingMusicImage">
                              <Span>
                                 {% comment %} <i class="fa-solid fa-bookmark fa-xl id=bookmark"></i> {% endcomment %}
-                                <i class="fa-regular fa-bookmark fa-xl" id="bookmark"></i>
+                                <i class="fa-regular fa-bookmark fa-xl" id="bookmark" data-played-track="{{ PlayedTrack }}"
+                                 data-played-track-id="{{ PlayedTrack.id }}"></i>
                             </Span>
                         <img src="{{PlayedTrack.image_url}}" alt="playingMusicImage" class="playing-image">
                         <div class="class="song-info">

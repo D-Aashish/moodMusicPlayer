@@ -12,3 +12,15 @@
             alert(error.message);
         });
           }
+document.querySelectorAll(".artist-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const artist = card.dataset.artist;
+    fetchArtistSongs(artist);
+  });
+});
+
+function fetchArtistSongs(artistName) {
+  fetch(`/api/artist-songs/?artist=${encodeURIComponent(artistName)}`)
+    .then(res => res.json())
+    .then(data => renderSongs(data.songs));
+}``

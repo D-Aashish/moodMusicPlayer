@@ -86,13 +86,12 @@ def getTopArtist():
                 # print("Raw API data:", json.dumps(data, indent=2))
                 results = data.get("results", [])
                 if results:
-                        # print("First track example:", json.dumps(results[0], indent=2))
+                        # print("First track example:", json.dumps(results[0].id, indent=2))
                         return results
                 else:
                         print("No artist found based on the given parameters.")
         else:
                 print(f"Failed to fetch tracks. Status code: {response.status_code}")
-                # print("Raw Response:", response.text)
 
 def mostPlayedSongs():
         url = f"https://api.jamendo.com/v3.0/tracks/"

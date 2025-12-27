@@ -1,0 +1,32 @@
+<div class="artist-card">
+        {% if musicInfo %}
+            <div class="song-section">
+              <div class="song-thumbnail">
+                <img src="{{ musicInfo.album_image }}" alt="{{ track.name }}" width="150">
+                <audio controls data-track-id="{{ track.id }}">
+                    <source src="{{ track.audio }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+              </div>
+
+              <div class="songPlay">
+                <div class="musicInfo">
+                  <h3>{{ musicInfok.name }}</h3>
+                  <p>Artist: {{ musicInfo.artist_name }}</p>
+                  <p>Album: {{ musicInfo.album_name }}</p>
+                  <p>Released: {{ musicInfo.releasedate }}</p>
+                  <p>Duration: {{ musicInfo.duration|divisibleby:60 }}:{% widthratio track.duration 60 60 %} min</p>
+                  </div>
+                  {% comment %} <p>
+                      <a href="{{ track.audiodownload }}" target="_blank">Download</a> |
+                  </p> {% endcomment %}
+                  <div class="musicBookmark">
+                   <Span><i class="fa-regular fa-bookmark fa-xl" id="bookmark"></i></Span>
+                  </div>
+                </div>
+            </div>
+
+        {% else %}
+          <p>Clicked song not available </p>
+        {% endif %}
+      </div>
